@@ -1,0 +1,27 @@
+site_name: Enter application name 
+site_url: http://staging.unifeyed.com/staging directory
+site_description: Project documentation with Markdown.
+site_author: Unifeyed LLC
+
+theme: 'material'
+docs_dir: 'manual'
+site_dir: 'user_guide'
+
+pages:
+- Home: index.md
+- User Guide:
+    - Administration: administration.md
+    - User: users.md
+    - Configuration: configuration.md
+- About:
+    - Release Notes: about/release-notes.md
+    - Contributing: about/contributing.md
+    - License: about/license.md
+
+extra_css:
+    - css/extra.css
+
+markdown_extensions:
+    - toc:
+        permalink: True
+    - admonition:

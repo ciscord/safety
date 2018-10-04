@@ -1,0 +1,21 @@
+<?php
+$lang['reports_reports'] = 'Reports';
+$lang['reports_report'] = 'Report';
+$lang['reports_welcome_message'] = 'Welcome to the reports panel. Please select a report to view.';
+$lang['reports_date'] = 'Date';
+$lang['reports_name'] = 'Name';
+$lang['reports_select_your_report'] = 'Select your report';
+$lang['reports_report_input'] = 'Reports';
+$lang['reports_type'] = 'Type';
+$lang['reports_date_range'] = 'Date Range';
+$lang['reports_items'] = 'Items';
+$lang['reports_employees'] = 'Employees';
+$lang['reports_taxes'] = 'Taxes';
+$lang['reports_customer'] = 'Customer';
+$lang['reports_employee'] = 'Employee';
+$lang['reports_description'] = 'Description';
+$lang['reports_date'] = 'Date';
+$lang['reports_count'] = 'Count';
+$lang['reports_item_name'] = 'Item Name';
+$lang['reports_sale_type'] = 'Type';
+$lang['reports_all'] = 'All';

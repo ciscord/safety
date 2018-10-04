@@ -1,0 +1,70 @@
+build_settings:
+#    clone_depth: 1 # depth of 1 is a shallow clone, remove this line to clone entire repo
+#    ignore:
+#        - "vendor"
+#        - "tests"
+#    mysql:
+#        host: "localhost"
+#        user: "root"
+#        pass: ""
+
+setup:
+#    mysql:
+#        - "DROP DATABASE IF EXISTS test;"
+#        - "CREATE DATABASE test;"
+#        - "GRANT ALL PRIVILEGES ON test.* TO test@'localhost' IDENTIFIED BY 'test';"
+#    composer:
+#        action: "install"
+
+test:
+#    behat:
+#        executable: "/home/geoff/vendor/behat/behat/bin/behat"
+#        features: "--config"
+#    php_mess_detector:
+#        allow_failures: true
+#        ignore:
+#          - 'upload'
+#          - 'system'
+#          - 'install'
+#          - 'assets'
+#          - 'application/cache'
+#          - 'application/core'
+#          - 'application/language'
+#          - 'applicaion/logs'
+#          - 'application/sessions'
+#        rules:
+#          - "cleancode"
+#          - "controversial"
+#          - "design"
+#          - "naming"
+#          - "unusedcode"
+    php_docblock_checker:
+        path: "application/controllers"
+        allowed_warnings: 15
+        skip_classes: true
+#    php_code_sniffer:
+#        path: "application/controllers"
+#        standard: "PSR2"
+#    php_cpd:
+#       allow_failures: true
+
+complete:
+    clean_build:
+        remove:
+        - "composer.json"
+    deployer:
+        webhook_url: "http://deployer.unifeyed.com/deploy/HxnC4canRN1TQ0jJ5gb0behPMc5zIREiyJr1EbBvJz4StOTbZzilqxk0jtQF"
+        reason: "PHPCI Build #%BUILD% - %COMMIT_MESSAGE%"
+        update_only: true
+    email:
+        committer: true
+        addresses: 
+          - gmoody@unifeyed.com
+
+#    mysql:
+#        host: "localhost"
+#        user: "root"
+#        pass: ""
+#        - "DROP DATABASE IF EXISTS test;"
+
+success:

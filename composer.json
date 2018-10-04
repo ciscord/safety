@@ -1,0 +1,11 @@
+{   
+	"config": {
+        "vendor-dir": "application/third_party/"
+    },
+	"require": {
+		"hybridauth/hybridauth": "*",
+		"phpmailer/phpmailer": "*",
+		"tecnickcom/tcpdf" : "*"
+	}
+	
+}
