@@ -62,7 +62,7 @@ if (isset($_SERVER['CI_ENV'])) {
     $env = $_SERVER['CI_ENV'];
 } elseif ($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
     $env = 'development';
-} elseif (substr_count($_SERVER['HTTP_HOST'], 'staging.unifeyed.com') > 0) {
+} elseif (substr_count($_SERVER['HTTP_HOST'], 'safety.unfstaging.com') > 0) {
     $env = 'staging';
 } else {
     $env = 'production';
