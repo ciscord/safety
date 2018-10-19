@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Company  extends CI_Model
+class Company_model  extends CI_Model
 {
 	/*
 	Determines if a given user_id is exist
@@ -608,7 +608,7 @@ GROUP BY ".$this->db->dbprefix."companies.company_id");
 	{
 		if($this->session->userdata('user_id')){
 			$user_id=$this->session->userdata('user_id');
-			if($this->User->check_active($user_id)==1){
+			if($this->User_model->check_active($user_id)==1){
 				return true;
 			}
 			else{

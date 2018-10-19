@@ -118,7 +118,7 @@ class Trashes extends Secure_area implements iData_controller
 	public function get_row()
 	{
 		$user_id = $this->input->post('row_id');
-		$data_row=get_people_data_row($this->User->get_info($user_id),$this);
+		$data_row=get_people_data_row($this->User_model->get_info($user_id),$this);
 		echo $data_row;
 	}
 	
@@ -142,7 +142,7 @@ class Trashes extends Secure_area implements iData_controller
 	public function view($user_id=-1)
 	{
 		// get all user details by user id
-	    $data['user_info']=$this->User->get_info($user_id);
+	    $data['user_info']=$this->User_model->get_info($user_id);
 		// dob of user
 	    $dob=$data['user_info']->dob;
 	    if ($dob=="0000-00-00" || $dob==""){
@@ -173,7 +173,7 @@ class Trashes extends Secure_area implements iData_controller
 		$cday = $split_date[2];
 		$data=$this->get_registration_date($data,$cmonth,$cday,$cyear);
 		
-		$data['all_modules']=$this->Module->get_editable_modules();
+		$data['all_modules']=$this->Module_model->get_editable_modules();
 		$this->load->view("users/trashes/form",$data);
 	}
 	

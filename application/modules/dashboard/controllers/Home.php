@@ -18,6 +18,6 @@ class Home  extends Secure_area
 	
 	public function logout()
 	{
-		$this->User->logout();
+		$this->User_model->logout();
 	}
 }

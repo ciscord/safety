@@ -67,7 +67,8 @@ function get_user_data_row($data_row,$controller)
     else
 	$table_data_row.='<td width="10%"><span class="label label-danger">'.$CI->lang->line('profiles_deactivated').'</span></td>';	
 
-	$table_data_row.='<td width="10%">'.anchor($controller_path."/view/$data_row->user_id", $CI->lang->line('icon_edit'),array('class'=>'thickbox','title'=>$CI->lang->line('common_edit'))).'</td>';		
+	$table_data_row.='<td width="10%">'.anchor($controller_path."/view/$data_row->user_id", $CI->lang->line('icon_edit'),array('class'=>'thickbox','title'=>$CI->lang->line('common_edit'))).str_repeat('&nbsp;', 5).anchor($controller_path."/deletebyid/$data_row->user_id", $CI->lang->line('icon_delete'),array('class'=>'thickbox','title'=>$CI->lang->line('common_edit'))).'</td>';		
+
 	$table_data_row.='</tr>';
 	
 	return $table_data_row;

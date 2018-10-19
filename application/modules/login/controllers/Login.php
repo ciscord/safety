@@ -14,9 +14,9 @@ class Login extends UNF_Controller
 		$config=load_social();//loading social application keys
 		$this->load->library('HybridAuthLib',$config);//library for social authentication
 	    if ($user_id=$this->verifyCookie()) { 
-            if($this->User->check_active($user_id)==1){
+            if($this->User_model->check_active($user_id)==1){
 			    $this->session->set_userdata('user_id', $user_id) ;
-				if ($this->User->has_permission("dashboards",$user_id)) {
+				if ($this->User_model->has_permission("dashboards",$user_id)) {
 		            redirect('dashboard/dashboards');
 		        }
 		        else{
@@ -25,8 +25,8 @@ class Login extends UNF_Controller
 			}
 		}
 		  
-	    if ($this->User->is_logged_in()) {
-		    if ($this->User->has_permission("dashboards",$this->User->get_logged_in_user_info()->user_id)) {
+	    if ($this->User_model->is_logged_in()) {
+		    if ($this->User_model->has_permission("dashboards",$this->User_model->get_logged_in_user_info()->user_id)) {
 		        redirect('dashboard/dashboards');
 		    }
 		    else {
@@ -57,7 +57,7 @@ class Login extends UNF_Controller
 		    $this->template->login_template($login_data);
 			}
 			else {
-			    if ($this->User->has_permission("dashboards",$this->User->get_logged_in_user_info()->user_id)) {
+			    if ($this->User_model->has_permission("dashboards",$this->User_model->get_logged_in_user_info()->user_id)) {
 		            redirect('dashboard/dashboards');
 		        }
 				else {
@@ -113,8 +113,8 @@ class Login extends UNF_Controller
 		
 	public function user_register()
 	{
-	    if ($this->User->is_logged_in()) {
-		    if ($this->User->has_permission("dashboards",$this->User->get_logged_in_user_info()->user_id)) {
+	    if ($this->User_model->is_logged_in()) {
+		    if ($this->User_model->has_permission("dashboards",$this->User_model->get_logged_in_user_info()->user_id)) {
 		        redirect('dashboard/dashboards');
 		    }
 		    else {
@@ -235,8 +235,8 @@ class Login extends UNF_Controller
 		
 		    $user= $this->input->post('username');
 		    $email= $this->input->post('email');
-		    $usermailcount=$this->User->check_email($email,$user_id);
-			$usercount=$this->User->check_username($user,$user_id);
+		    $usermailcount=$this->User_model->check_email($email,$user_id);
+			$usercount=$this->User_model->check_username($user,$user_id);
 		    if (!$this->check_captcha($captchaStr)) { 
 		        echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_validation_error')));
 		    }
@@ -248,11 +248,11 @@ class Login extends UNF_Controller
 		            echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_username_exist')));
 		        }
 		        else {
-		            if($this->User->save($userinfo_data,$userlog_data,$permission_data,$user_id))
+		            if($this->User_model->save($userinfo_data,$userlog_data,$permission_data,$user_id))
 		            {
 				        if($this->config->item('reg_mail_send')==0){
 							$verificationcode=md5($to_email.$userlog_data['user_id']);  //Create verification code
-						    if($this->User->sendVerificationEmail($userlog_data['user_id'],$to_email,$verificationcode))
+						    if($this->User_model->sendVerificationEmail($userlog_data['user_id'],$to_email,$verificationcode))
 						    echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_with_email_validating').' '.
 				            html_escape($this->security->xss_clean($userinfo_data['first_name'])).' '.html_escape($this->security->xss_clean($userinfo_data['last_name'])),'user_id'=>$userlog_data['user_id']));
 							else
@@ -278,7 +278,7 @@ class Login extends UNF_Controller
 	function verify($verificationText=NULL)
 	{  
        
-        if ($this->User->verifyEmailAddress($verificationText)){
+        if ($this->User_model->verifyEmailAddress($verificationText)){
             $data['success']='success_message_box';
 			$message =  $this->lang->line('login_mail_conformation_successful')."<br><br>".anchor('login', $this->lang->line('login_login'))." "; 
         }
@@ -301,8 +301,8 @@ class Login extends UNF_Controller
 		$password= $this->input->post('password');
 	    $remember = $this->input->post('remember_me');
 
-		if (!$this->User->login($username,$password)) {
-			if ($this->User->is_login_exist($username, $password)){
+		if (!$this->User_model->login($username,$password)) {
+			if ($this->User_model->is_login_exist($username, $password)){
 				$this->form_validation->set_message('login_check', $this->lang->line('error_inactive_account'));
 			}
 			else{
@@ -312,7 +312,7 @@ class Login extends UNF_Controller
 		} 
 		
 		 if ($remember) {
-			$this->setCookie($this->User->get_username_user_id($username), false);
+			$this->setCookie($this->User_model->get_username_user_id($username), false);
         }  
 		return true;		
 	}
@@ -425,8 +425,8 @@ class Login extends UNF_Controller
         }
 	    else {
             $email = $this->input->post('email');
-            $count_email = $this->User->check_email($email,-1);
-            $active_email = $this->User->check_active_email($email);
+            $count_email = $this->User_model->check_email($email,-1);
+            $active_email = $this->User_model->check_active_email($email);
       
             if ($count_email == 1 && $active_email==1) {
                 // Make a small string (code) to assign to the user // to indicate they've requested a change of // password
@@ -434,7 +434,7 @@ class Login extends UNF_Controller
                 $data = array(
                 'forgot_password' => $code,
                 );
-                if($this->User->update_forget_password($code,$email,$data)) {
+                if($this->User_model->update_forget_password($code,$email,$data)) {
 				     $data['message']=$this->lang->line('login_forget_password_mail_message');
 				     $data['success']='success_message_box';
 				}
@@ -482,7 +482,7 @@ class Login extends UNF_Controller
 	else {
       // Does code from input match the code against the  email
       $email = $this->input->post('email');
-      if (!$this->User->password_code_match($data['code'], $email)) {
+      if (!$this->User_model->password_code_match($data['code'], $email)) {
         // Code doesn't match
 		$data['content_view']='login/password_reset_failed';
 		$this->load->module("template");
@@ -498,8 +498,8 @@ class Login extends UNF_Controller
 			
 			$userinfo_data=array();
 
-            $user_id=$this->User->get_user_id($email);
-            if ($this->User->update_password($userlog_data,$userinfo_data, $user_id)) {
+            $user_id=$this->User_model->get_user_id($email);
+            if ($this->User_model->update_password($userlog_data,$userinfo_data, $user_id)) {
                 
 				$data['content_view']='login/password_reset_success';
 		        $this->load->module("template");

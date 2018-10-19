@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div class='form_field'>
 	  <?php 
                         $attr = 'id="country_list"   disabled   ';
-                        $query =$this->User->get_country_list();
+                        $query =$this->User_model->get_country_list();
 						
 						 foreach($query->result_array() as $row)
                          {

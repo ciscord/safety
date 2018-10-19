@@ -132,4 +132,4 @@ $autoload['language'] = array('common', 'config','error', 'login', 'module','mai
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('users/Module','config/Appconfig','users/Userinfo','companies/Company','dashboard/Dashboard','users/User','users/Profile','users/Trash');
+$autoload['model'] = array('users/Module_model','config/Appconfig','users/Userinfo_model','companies/Company_model','dashboard/Dashboard_model','users/User_model','users/Profile_model','users/Trash_model');

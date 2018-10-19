@@ -282,7 +282,7 @@ class User_reports extends Secure_area implements iData_controller
 	public function view($user_id=-1)
 	{
 		// get all user details by user id
-	    $data['user_info']=$this->User->get_info($user_id);
+	    $data['user_info']=$this->User_model->get_info($user_id);
 		// dob of user
 	    $dob=$data['user_info']->dob;
 	    if ($dob=="0000-00-00" || $dob==""){
@@ -313,7 +313,7 @@ class User_reports extends Secure_area implements iData_controller
 		$cday = $split_date[2];
 		$data=$this->get_registration_date($data,$cmonth,$cday,$cyear);
 		
-		$data['all_modules']=$this->Module->get_editable_modules();
+		$data['all_modules']=$this->Module_model->get_editable_modules();
 		$this->load->view("reports/user_reports/form",$data);
 	}
 	

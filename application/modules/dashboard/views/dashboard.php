@@ -151,7 +151,7 @@
       for ($i=$cmonth;$i>0;$i--) {
           $i = sprintf("%02d", $i);
        $dates=$cyear."-".$i;
-       $regForMonth=$this->Dashboard->totalRegForMonth($dates);
+       $regForMonth=$this->Dashboard_model->totalRegForMonth($dates);
        echo "{y: '".$dates."', item1: ".$regForMonth."},";
       }
       ?>
@@ -174,7 +174,7 @@
       for ($i=$cmonth;$i>0;$i--) {
        $i = sprintf("%02d", $i);
        $dates=$cyear."-".$i;
-       $activeUsersForMonth=$this->Dashboard->totalActiveUsersForMonth($dates);
+       $activeUsersForMonth=$this->Dashboard_model->totalActiveUsersForMonth($dates);
        echo "{y: '".$dates."', item1: ".$activeUsersForMonth."},";
       }
       ?>
@@ -198,7 +198,7 @@
        var visitorsData = {
    		
            <?php
-      $rows=$this->Dashboard->userbyCountry();
+      $rows=$this->Dashboard_model->userbyCountry();
       foreach ($rows->result() as $row) {
           echo "'".$counts=$row->country_code."': ". $counts=$row->counts." ,";
       }	

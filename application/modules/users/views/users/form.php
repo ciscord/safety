@@ -46,7 +46,7 @@ echo $upload_path."/".$default_image_name;?>?<?php echo time(); //to prevent bro
 				$js = 'id="'.$module->module_id.'"';
 			}
              
-			echo form_checkbox("permissions[]",$module->module_id,$this->User->has_permission($module->module_id,$user_info->user_id),$js);
+			echo form_checkbox("permissions[]",$module->module_id,$this->User_model->has_permission($module->module_id,$user_info->user_id),$js);
 						 ?>
          <label for="<?php echo $module->module_id ?>"></label>
          <span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>

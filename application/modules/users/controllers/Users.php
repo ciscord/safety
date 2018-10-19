@@ -15,7 +15,7 @@ class Users extends Secure_area implements iData_controller
 	{
 		$config['base_url'] = site_url('users/users/index');
 		$this->load->library('pagination'); 
-		$config['total_rows'] = $this->User->count_all();
+		$config['total_rows'] = $this->User_model->count_all();
 		$config['per_page'] = $this->config->item('pagination_limit'); //Get page limit from config settings 
 		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config);
@@ -23,9 +23,9 @@ class Users extends Secure_area implements iData_controller
 		$data['controller_name']=strtolower(get_class());
 		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();;
 		$data['form_width']=$this->get_form_width();
-		$data['content_view']='users/users/manage';
+		$data['content_view']='users/users/user_list';
  
-		$data['manage_table']=get_user_manage_table( $this->User->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
+		$data['manage_table']=get_user_manage_table( $this->User_model->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
 		$this->load->module("template");
 		$this->template->manage_tables_template($data);
  
@@ -37,14 +37,14 @@ class Users extends Secure_area implements iData_controller
 	public function search()
 	{
 		$search=$this->input->post('search');
-		$data_rows=get_people_manage_table_data_rows($this->User->search($search),$this);
+		$data_rows=get_people_manage_table_data_rows($this->User_model->search($search),$this);
 		echo $data_rows;
 	}
 	
 	public function get_row()
 	{
 		$user_id = $this->input->post('row_id');
-		$data_row=get_people_data_row($this->User->get_info($user_id),$this);
+		$data_row=get_people_data_row($this->User_model->get_info($user_id),$this);
 		echo $data_row;
 	}
 	/*
@@ -52,7 +52,7 @@ class Users extends Secure_area implements iData_controller
 	*/
 	public function suggest()
 	{
-		$suggestions = $this->User->get_search_suggestions($this->input->post('q'),$this->input->post('limit'));
+		$suggestions = $this->User_model->get_search_suggestions($this->input->post('q'),$this->input->post('limit'));
 		echo implode("\n",$suggestions);
 	}
 	
@@ -137,8 +137,8 @@ class Users extends Secure_area implements iData_controller
 	*/
 	public function view($user_id=-1)
 	{
-		$data['user_info']=$this->User->get_info($user_id);
-		$data['all_modules']=$this->Module->get_editable_modules();
+		$data['user_info']=$this->User_model->get_info($user_id);
+		$data['all_modules']=$this->Module_model->get_editable_modules();
 		if ($user_id==-1) {//new admin user form 
 			$data['content_view']='users/users/admin_user_form';//this is for admin form
 		}
@@ -148,7 +148,7 @@ class Users extends Secure_area implements iData_controller
 		
 		$config['base_url'] = site_url('users/users/index');
 		$this->load->library('pagination'); 
-		$config['total_rows'] = $this->User->count_all();
+		$config['total_rows'] = $this->User_model->count_all();
 		$config['per_page'] = $this->config->item('pagination_limit'); //Get page limit from config settings 
 		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config);
@@ -158,7 +158,7 @@ class Users extends Secure_area implements iData_controller
 		$data['form_width']=$this->get_form_width();
 		
  
-		$data['manage_table']=get_user_manage_table( $this->User->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
+		$data['manage_table']=get_user_manage_table( $this->User_model->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
 		$this->load->module("template");
 		$this->template->manage_user_template($data);
 
@@ -167,7 +167,7 @@ class Users extends Secure_area implements iData_controller
 	public function edit_profile_image($user_id=-1)
 	{
 		$data['user_id']=$user_id;
-		$data['user_info']=$this->User->get_info($user_id);
+		$data['user_info']=$this->User_model->get_info($user_id);
 		$this->load->view("users/users/edit_profile_image",$data);
 	}
 	
@@ -186,7 +186,7 @@ class Users extends Secure_area implements iData_controller
 			(
 				'profile_image'=>$user_id.".png"
 			);
-			if ($this->User->update_user_info($userinfo_data,$user_id)) {
+			if ($this->User_model->update_user_info($userinfo_data,$user_id)) {
 				
 				$filePath = $targetDir ;
 				$unencodedData=base64_decode($filteredData);
@@ -234,7 +234,7 @@ class Users extends Secure_area implements iData_controller
 	{
 	    
 		// get all user details by user id
-	    $data['user_info']=$this->User->get_info($user_id);
+	    $data['user_info']=$this->User_model->get_info($user_id);
 		$this->load->view("users/users/login_info",$data);
 	}
 	public function addadmin() {
@@ -272,7 +272,7 @@ class Users extends Secure_area implements iData_controller
 		    );
 			if($user_id == -1){
 				$userinfo_data['email'] = $email = $this->input->post('email');
-				$usermailcount=$this->User->check_email($email,$user_id);
+				$usermailcount=$this->User_model->check_email($email,$user_id);
 			}			
 		   
 		    if ($this->input->post('password')!='') {
@@ -288,7 +288,7 @@ class Users extends Secure_area implements iData_controller
 				echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_email_exist')));
 			}else {
 
-		       if ($this->User->save($userinfo_data,$userlog_data,$user_id)) {
+		       if ($this->User_model->save($userinfo_data,$userlog_data,$user_id)) {
 			    //New user
 			        if ($user_id==-1) {
 				        echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_adding').' '.
@@ -312,7 +312,7 @@ class Users extends Secure_area implements iData_controller
 	{
 		$this->load->library('bcrypt');
 		//Password has been changed 
-		$login_user_id=$this->User->get_logged_in_user_info()->user_id;
+		$login_user_id=$this->User_model->get_logged_in_user_info()->user_id;
 		
 		//server side validation
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[250]');
@@ -337,11 +337,11 @@ class Users extends Secure_area implements iData_controller
 		    );
 			$user=$this->input->post('username');
 			$current_password=$this->input->post('current_password');
-			$usermailcount=$this->User->check_email($email,$user_id);
-			$usercount=$this->User->check_username($user,$user_id);
+			$usermailcount=$this->User_model->check_email($email,$user_id);
+			$usercount=$this->User_model->check_username($user,$user_id);
 			
 		
-			$password_match=$this->User->check_password($current_password,$login_user_id);
+			$password_match=$this->User_model->check_password($current_password,$login_user_id);
 			if ($password_match==0) {
 				echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_password_missmatch')));
 			}
@@ -352,7 +352,7 @@ class Users extends Secure_area implements iData_controller
 				echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_username_exist')));
 			}
 			else {
-				if ($this->User->update_password( $userlog_data,$userinfo_data,$user_id)) {
+				if ($this->User_model->update_password( $userlog_data,$userinfo_data,$user_id)) {
 				    echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_updating').' ','user_id'=>$user_id));
 				}
 				else {	 //failure
@@ -369,9 +369,22 @@ class Users extends Secure_area implements iData_controller
 	public function delete()
 	{
 		$users_to_delete=$this->input->post('ids');
-		if ($this->User->delete_list($users_to_delete)) {
+		if ($this->User_model->delete_list($users_to_delete)) {
 			echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_deleted').' '.
 			count($users_to_delete).' '.$this->lang->line('profiles_one_or_multiple')));
+		}
+		else {
+			echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_cannot_be_deleted')));
+		}
+	}
+
+	/*
+	This deletes user by id from the users table
+	*/
+	public function deletebyid($user_id=-1)
+	{
+		if ($this->User_model->delete($user_id)) {
+			echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_deleted')));
 		}
 		else {
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_cannot_be_deleted')));

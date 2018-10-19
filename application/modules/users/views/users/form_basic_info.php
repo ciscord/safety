@@ -38,7 +38,7 @@
    <div class='form_field'>
         <?php 
                         $attr=array('id'=>'country_list');
-                        $query =$this->User->get_country_list();
+                        $query =$this->User_model->get_country_list();
 						
 						 foreach($query->result_array() as $row)
                          {

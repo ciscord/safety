@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Module extends CI_Model 
+class Module_model extends CI_Model 
 {
     public function __construct()
     {
@@ -70,7 +70,7 @@ class Module extends CI_Model
 	public function get_allowed_submodules($main_module_id)
 	{
 		
-	    $user_id=$this->User->get_logged_in_user_info()->user_id;
+	    $user_id=$this->User_model->get_logged_in_user_info()->user_id;
 		$this->db->from('modules');
 		$this->db->join('permissions','permissions.module_id=modules.module_id');
 		$this->db->where("modules.main_module_id",$main_module_id);

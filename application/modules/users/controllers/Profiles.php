@@ -12,7 +12,7 @@ class Profiles extends Secure_area implements iData_controller
 	
 	public function index()
 	{
-		$user_id=	 $this->User->get_logged_in_user_info()->user_id;
+		$user_id=	 $this->User_model->get_logged_in_user_info()->user_id;
 		$data['user_info']=$this->Profile->get_info($user_id);
 	
 		$dob=$data['user_info']->dob;
@@ -76,7 +76,7 @@ class Profiles extends Secure_area implements iData_controller
 	public function edit_profile_image($user_id=-1)
 	{
 		$data['user_id']=$user_id;
-		$data['user_info']=$this->User->get_info($user_id);
+		$data['user_info']=$this->User_model->get_info($user_id);
 		$this->load->view("users/profiles/edit_profile_image",$data);
 	}
 	
@@ -99,7 +99,7 @@ class Profiles extends Secure_area implements iData_controller
 			(
 				'profile_image'=>$user_id.".png"
 			);
-			if ($this->User->update_user_info($userinfo_data,$user_id)) {
+			if ($this->User_model->update_user_info($userinfo_data,$user_id)) {
 				
 				$filePath = $targetDir ;
 				$unencodedData=base64_decode($filteredData);
@@ -146,9 +146,9 @@ class Profiles extends Secure_area implements iData_controller
 	
 	public function change_password($user_id=-1)
 	{
-	    $empty_password=$this->User->check_empty_password($user_id);
+	    $empty_password=$this->User_model->check_empty_password($user_id);
 		// get all user details by user id
-	    $data['user_info']=$this->User->get_info($user_id);
+	    $data['user_info']=$this->User_model->get_info($user_id);
 	    $data['empty_password']=$empty_password;
 		$this->load->view("profiles/login_info",$data);
 	}
@@ -159,7 +159,7 @@ class Profiles extends Secure_area implements iData_controller
 	public function save_password($user_id=-1)
 	{
 		$this->load->library('bcrypt');
-		$empty_password=$this->User->check_empty_password($user_id);
+		$empty_password=$this->User_model->check_empty_password($user_id);
 		//server side validation
 		$this->form_validation->set_rules('email', $this->lang->line('profiles_email'), 'required|valid_email|max_length[250]');
 		if(!$empty_password)
@@ -190,9 +190,9 @@ class Profiles extends Secure_area implements iData_controller
 			$email =  $this->input->post('email');
 		    $current_password =$this->input->post('current_password');
 		
-		    $usermailcount=$this->User->check_email($email,$user_id);
-			$usercount=$this->User->check_username($user,$user_id);
-		    $password_match=$this->User->check_password($current_password,$user_id);
+		    $usermailcount=$this->User_model->check_email($email,$user_id);
+			$usercount=$this->User_model->check_username($user,$user_id);
+		    $password_match=$this->User_model->check_password($current_password,$user_id);
 			if($empty_password)
 		    {
 			    $password_match=true;
@@ -208,7 +208,7 @@ class Profiles extends Secure_area implements iData_controller
 		        echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_username_exist')));
 		    }
 		    else {
-		        if ($this->User->update_password( $userlog_data,$userinfo_data,$user_id)) {
+		        if ($this->User_model->update_password( $userlog_data,$userinfo_data,$user_id)) {
 				    echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_updating').' '));
 		        }
 		        else {	 //failure
@@ -250,7 +250,7 @@ class Profiles extends Secure_area implements iData_controller
 		
 
 		
-		    if ($this->Userinfo->save($person_data,$userlog_data,$permission_data,$user_id)) {
+		    if ($this->Userinfo_model->save($person_data,$userlog_data,$permission_data,$user_id)) {
 		    echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_updating').' '.
 			$person_data['first_name'],'user_id'=>$user_id));
 			return;

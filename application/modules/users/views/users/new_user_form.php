@@ -67,7 +67,7 @@
       <li>	
          <?php
             $js = 'id="'.$module->module_id.'"';
-             echo form_checkbox("permissions[]",$module->module_id,$this->User->has_permission($module->module_id,$user_info->user_id),$js); ?>
+             echo form_checkbox("permissions[]",$module->module_id,$this->User_model->has_permission($module->module_id,$user_info->user_id),$js); ?>
          <label for="<?php echo $module->module_id ?>"></label>
          <span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
          <span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>

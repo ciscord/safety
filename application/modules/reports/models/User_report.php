@@ -1,6 +1,6 @@
 <?php
-//class User extends Userinfo
-class User_report  extends Userinfo
+//class User extends Userinfo_model
+class User_report  extends Userinfo_model
 {
 	/*
 	Determines if a given user_id is exist

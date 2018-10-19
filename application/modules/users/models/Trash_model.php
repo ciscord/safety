@@ -1,8 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-//class User extends Userinfo
-class Trash extends CI_Model   
+//class User extends Userinfo_model
+class Trash_model extends CI_Model   
 {
 	/*
 	Determines if a given user_id is exist
@@ -70,7 +70,7 @@ class Trash extends CI_Model
 		}
 		else {
 			//Get empty Userinfo table object
-			$person_obj=$this->Userinfo->get_info(-1);
+			$person_obj=$this->Userinfo_model->get_info(-1);
 			//Get all the fields from user table
 			$fields = $this->db->list_fields('users');
 			//append those fields to base parent object, we we have a complete empty object

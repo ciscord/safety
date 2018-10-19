@@ -15,7 +15,7 @@ class Companies extends Secure_area implements iData_controller
 	{
 		$config['base_url'] = site_url('companies/companies/index');
 		$this->load->library('pagination'); 
-		$config['total_rows'] = $this->Company->count_all();
+		$config['total_rows'] = $this->Company_model->count_all();
 		$config['per_page'] = $this->config->item('pagination_limit'); //Get page limit from config settings 
 		$config['uri_segment'] = 4;
 		$this->pagination->initialize($config);
@@ -25,7 +25,7 @@ class Companies extends Secure_area implements iData_controller
 		$data['form_width']=$this->get_form_width();
 		$data['content_view']='users/users/manage';
  
-		$data['manage_table']=get_company_manage_table( $this->Company->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
+		$data['manage_table']=get_company_manage_table( $this->Company_model->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
 		$this->load->module("template");
 		$this->template->manage_tables_template($data);
  

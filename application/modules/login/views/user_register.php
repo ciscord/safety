@@ -129,7 +129,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class='col-sm-8'>
                      <?php 
                         $attr=array('id'=>'country_list');
-                        $query =$this->User->get_country_list();
+                        $query =$this->User_model->get_country_list();
 						
 						 foreach($query->result_array() as $row)
                          {

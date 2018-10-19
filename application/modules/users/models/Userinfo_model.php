@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Profile extends CI_Model 
+class Userinfo_model extends CI_Model 
 {
-	/* Determines whether the given User exists */
+	/*Determines whether the given user exists*/
 	public function exists($user_id)
 	{
 		$this->db->from('userinfo');	
@@ -12,7 +12,7 @@ class Profile extends CI_Model
 		return ($query->num_rows()==1);
 	}
 	
-	/* Gets all userinfo */
+	/*Gets all userinfo*/
 	public function get_all($limit=10000, $offset=0)
 	{
 		$this->db->from('userinfo');
@@ -34,10 +34,8 @@ class Profile extends CI_Model
 	*/
 	public function get_info($user_id)
 	{
-		$this->db->from('userinfo');	
-		$this->db->join('users', 'users.user_id = userinfo.user_id');
-		$this->db->where('users.user_id',$user_id);
-		$query = $this->db->get();
+		$query = $this->db->get_where('userinfo', array('user_id' => $user_id), 1);
+		
 		if ($query->num_rows()==1) {
 			return $query->row();
 		}
@@ -45,9 +43,11 @@ class Profile extends CI_Model
 			//create object with empty properties.
 			$fields = $this->db->list_fields('userinfo');
 			$person_obj = new stdClass;
+			
 			foreach ($fields as $field) {
 				$person_obj->$field='';
 			}
+			
 			return $person_obj;
 		}
 	}
@@ -63,6 +63,39 @@ class Profile extends CI_Model
 		return $this->db->get();		
 	}
 	
+	/*
+	Inserts or updates a person
+	*/
+
+	public function save(&$userinfo_data, &$userinfo,&$permission_data,$user_id=false)
+	{		
+		if (!$user_id or !$this->exists($user_id)) {
+			if ($this->db->insert('userinfo',$userinfo_data)) {
+				$userinfo_data['user_id']=$this->db->insert_id();
+				return true;
+			}
+			return false;
+		}
+		
+		$this->db->where('user_id', $user_id);
+		return $this->db->update('userinfo',$userinfo_data);
+	}
+	
+	/*
+	Deletes one User (doesn't actually do anything)
+	*/
+	public function delete($user_id)
+	{
+		return true;; 
+	}
+	
+	/*
+	Deletes a list of userinfo_data (doesn't actually do anything)
+	*/
+	public function delete_list($user_ids)
+	{	
+		return true;	
+ 	}
 	
 }
 

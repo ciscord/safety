@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class User  extends Userinfo
+class User_model  extends Userinfo_model
 {
 	/*
 	Determines if a given user_id is exist
@@ -605,7 +605,7 @@ class User  extends Userinfo
 	{
 		if($this->session->userdata('user_id')){
 			$user_id=$this->session->userdata('user_id');
-			if($this->User->check_active($user_id)==1){
+			if($this->User_model->check_active($user_id)==1){
 				return true;
 			}
 			else{
