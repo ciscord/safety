@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $.widget.bridge('uibutton', $.ui.button);
     </script>
 	</head>
-	  <body class="hold-transition skin-red sidebar-mini">
+	  <body class="hold-transition skin-black sidebar-mini">
 		
 		<div class="wrapper">
 

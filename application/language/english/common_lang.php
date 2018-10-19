@@ -1,4 +1,5 @@
 <?php
+$lang['common_actions']='Actions';
 $lang['common_common']='common';
 $lang['common_404']='Oops, 404!';
 $lang['common_404_message']='The page you requested was not found';

@@ -1,192 +1,100 @@
 
-      <div class="content-wrapper">
+    <div class="content-wrapper">
          <!-- Content Header (Page header) -->
-         <section class="content-header">
-            <h1>
-               <?php  echo $this->lang->line("module_dashboards");  ?> 
-            </h1>
-         </section>
+        <section class="content-header">
+            <div id="page_title"><?php  echo $this->lang->line("module_dashboards");  ?> </div>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-tachometer-alt"></i> Home</a></li>
+                    <li class="active">Dashboard</li>
+                </ol>
+        </section>
+
          <!-- Main content -->
          <section class="content">
-            <!-- Small boxes (Stat box) -->
-            <div class="row">
-               <div class="col-lg-3 col-xs-6">
-                  <!-- small box -->
-                  <div class="small-box bg-aqua">
-                     <div class="inner">
-                        <h3><?php echo $total_users; ?></h3>
-                        <p><?php  echo $this->lang->line("dashboard_total_users");  ?></p>
-                     </div>
-                     <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                     </div>
-                     <a  href="<?php echo site_url("reports/user_reports/user_all_report"); ?>"  class="small-box-footer"><?php  echo $this->lang->line("dashboard_more_info");  ?> <i class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-               </div>
-               <!-- ./col -->
-               <div class="col-lg-3 col-xs-6">
-                  <!-- small box -->
-                  <div class="small-box bg-green">
-                     <div class="inner">
-                        <h3><?php echo $active_users; ?></h3>
-                        <p><?php  echo $this->lang->line("dashboard_active_users");  ?></p>
-                     </div>
-                     <div class="icon">
-                        <i class="ion-person-stalker"></i>
-                     </div>
-                     <a  href="<?php echo site_url("reports/user_reports/user_active_report"); ?>" class="small-box-footer"><?php  echo $this->lang->line("dashboard_more_info");  ?> <i class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-               </div>
-               <!-- ./col -->
-               <div class="col-lg-3 col-xs-6">
-                  <!-- small box -->
-                  <div class="small-box bg-yellow">
-                     <div class="inner">
-                        <h3><?php echo $deactive_users; ?></h3>
-                        <p><?php  echo $this->lang->line("dashboard_deactivated_users");  ?></p>
-                     </div>
-                     <div class="icon">
-                        <i class="ion-locked"></i>
-                     </div>
-                     <a href="<?php echo site_url("reports/user_reports/user_deactvated_report"); ?>" class="small-box-footer"><?php  echo $this->lang->line("dashboard_more_info");  ?> <i class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-               </div>
-               <!-- ./col -->
-               <div class="col-lg-3 col-xs-6">
-                  <!-- small box -->
-                  <div class="small-box bg-red">
-                     <div class="inner">
-                        <h3><?php echo $deleted_users; ?></h3>
-                        <p><?php  echo $this->lang->line("dashboard_deleted_users");  ?></p>
-                     </div>
-                     <div class="icon">
-                        <i class="ion ion-trash-a"></i>
-                     </div>
-                     <a  href="<?php echo site_url("reports/user_reports/user_deleted_report"); ?>" class="small-box-footer"><?php  echo $this->lang->line("dashboard_more_info");  ?> <i class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-               </div>
-               <!-- ./col -->
-            </div>
-            <!-- /.row -->
-            <!-- Main row -->
-            <div class="row">
-               <!-- Left col -->
-               <section class="col-lg-7 connectedSortable">
-                  <!-- Custom tabs (Charts with tabs)-->
-                  <div class="nav-tabs-custom">
-                     <!-- Tabs within a box -->
-                     <ul class="nav nav-tabs pull-right">
-                        <li class="pull-left header"><i class="fa fa-inbox"></i> Users</li>
-                     </ul>
-                     <div class="tab-content no-padding">
-                        <!-- Morris chart - Sales -->
-                        <div class="chart tab-pane active" id="revenue-chart"  ></div>
-                        <div class="chart tab-pane" id="sales-chart"  ></div>
-                     </div>
-                  </div>
-                  <!-- /.nav-tabs-custom -->
-                  <!-- TO DO List -->
-                  <div class="box box-primary">
-                     <div class="box-header">
-                        <i class="ion ion-clipboard"></i>
-                        <h3 class="box-title">Month Summary</h3>
-                     </div>
-                     <!-- /.box-header -->
-                     <div class="box-body">
-                        <ul class="todo-list">
-                           <li>
-                              <!-- drag handle -->
-                              <span class="handle">
-                              <i class="fa fa-ellipsis-v"></i>
-                              <i class="fa fa-ellipsis-v"></i>
-                              </span>
-                              <!-- todo text -->
-                              <h4 class="text-center"> Total registration in month </h4>
-                              <!-- Emphasis label -->
-                              <h1 class="text-center "> <?php echo $total_reg_for_month; ?> </h1>
-                              <!-- General tools such as edit or delete-->
-                           </li>
-                        </ul>
-                     </div>
-                     <!-- /.box-body -->
-                  </div>
-                  <!-- /.box -->
-                  <!-- Calendar -->
-                  <div class="box box-solid bg-green-gradient">
-                     <div class="box-header">
-                        <i class="fa fa-calendar"></i>
-                        <h3 class="box-title">Calendar</h3>
-                        <!-- tools box -->
-                        <div class="pull-right box-tools">
-                           <!-- button with a dropdown -->
-                           <button class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                           <button class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
-                        </div>
-                        <!-- /. tools -->
-                     </div>
-                     <!-- /.box-header -->
-                     <div class="box-body no-padding">
-                        <!--The calendar -->
-                        <div id="calendar" ></div>
-                     </div>
-                     <!-- /.box-body -->
-                  </div>
-                  <!-- /.box -->
-               </section>
-               <!-- /.Left col -->
-               <!-- right col (We are only adding the ID to make the widgets sortable)-->
-               <section class="col-lg-5 connectedSortable">
-                  <!-- Map box -->
-                  <div class="box box-solid bg-light-blue-gradient">
-                     <div class="box-header">
-                        <!-- tools box -->
-                        <div class="pull-right box-tools">
-                           <button class="btn btn-primary btn-sm pull-right map-button" data-widget="collapse" data-toggle="tooltip" title="Collapse" ><i class="fa fa-minus"></i></button>
-                        </div>
-                        <!-- /. tools -->
-                        <i class="fa fa-map-marker"></i>
-                        <h3 class="box-title">
-                           Users by Country
-                        </h3>
-                     </div>
-                     <div class="box-body">
-                        <div id="world-map"  ></div>
-                     </div>
-                     <!-- /.box-body-->
-                     <div class="box-footer no-border">
-                        <div class="row">
-                           <div class="col-xs-12 text-center users-country-list" >
-                              <div class="knob-label">
-                                 <h5>Users From</h5>
-                                 <?php echo $country_name; ?>
-                              </div>
-                           </div>
-                           <!-- ./col -->
-                        </div>
-                        <!-- /.row -->
-                     </div>
-                  </div>
-                  <!-- /.box -->
-                  <!-- solid sales graph -->
-                  <div class="box box-solid bg-teal-gradient">
-				   <div class="box-header">
-                  <i class="fa fa-th"></i>
-                  <h3 class="box-title">Active Users</h3>
-                  <div class="box-tools pull-right">
-                    <button class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
+            
+            <div class="box box-info profile_form">
+            <ul id="error_message_box"></ul>
+              <!-- Small boxes (Stat box) -->
+              <div class="row">
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                      <div class="inner">
+                          <h3><?php echo $total_companies; ?></h3>
+                          <p><?php  echo $this->lang->line("dashboard_companies");  ?></p>
+                      </div>
+                      <div class="icon">
+                          <i class="ion ion-stats-bars"></i>
+                      </div>
+                      <a  href="<?php echo site_url("reports/user_reports/user_all_report"); ?>"  class="small-box-footer"><?php  echo $this->lang->line("dashboard_more_info");  ?> <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
                 </div>
-                     <div class="box-body border-radius-none">
-                        <div class="chart" id="line-chart"  ></div>
-                     </div>
-                     <!-- /.box-body -->
-                  </div>
-                  <!-- /.box -->
-               </section>
-               <!-- right col -->
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                      <div class="inner">
+                          <h3><?php echo $total_admins; ?></h3>
+                          <p><?php  echo $this->lang->line("dashboard_admins");  ?></p>
+                      </div>
+                      <div class="icon">
+                          <i class="ion-person-stalker"></i>
+                      </div>
+                      <a  href="<?php echo site_url("reports/user_reports/user_active_report"); ?>" class="small-box-footer"><?php  echo $this->lang->line("dashboard_more_info");  ?> <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                      <div class="inner">
+                          <h3><?php echo $deactive_users; ?></h3>
+                          <p><?php  echo $this->lang->line("dashboard_locations");  ?></p>
+                      </div>
+                      <div class="icon">
+                          <i class="ion-locked"></i>
+                      </div>
+                      <a href="<?php echo site_url("reports/user_reports/user_deactvated_report"); ?>" class="small-box-footer"><?php  echo $this->lang->line("dashboard_more_info");  ?> <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                      <div class="inner">
+                          <h3><?php echo $total_users; ?></h3>
+                          <p><?php  echo $this->lang->line("dashboard_users");  ?></p>
+                      </div>
+                      <div class="icon">
+                          <i class="ion ion-trash-a"></i>
+                      </div>
+                      <a  href="<?php echo site_url("reports/user_reports/user_deleted_report"); ?>" class="small-box-footer"><?php  echo $this->lang->line("dashboard_more_info");  ?> <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+              </div>
+              <!-- /.row -->
+              <!-- Main row -->
+              <div class="row">
+                <!-- Left col -->
+                <h4><b>ADMIN USERS</b></h4>
+                <div id="table_holder" class="table-responsive">
+                  <?php echo $manage_table; ?>
+                </div>
+                <!-- right col -->
+              </div>
+
+              <div class="row">
+                <!-- Left col -->
+                <h4><b>COMPANIES</b></h4>
+                <div id="table_holder" class="table-responsive">
+                  <?php echo $manage_company_table; ?>
+                </div>
+                <!-- right col -->
+              </div>
+
+              <!-- /.row (main row) -->
             </div>
-            <!-- /.row (main row) -->
          </section>
          <!-- /.content -->
       </div>

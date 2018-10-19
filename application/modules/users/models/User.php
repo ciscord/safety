@@ -30,7 +30,18 @@ class User  extends Userinfo
 		return $this->db->get();
 		
 	}
-	
+	public function get_all_admin($limit=10000, $offset=0)
+	{
+		$this->db->from('users');
+		$this->db->where('users.deleted',0);
+		$this->db->where('users.user_level',1);		
+		$this->db->join('userinfo','users.user_id=userinfo.user_id');			
+		$this->db->order_by("first_name", "asc");
+		$this->db->limit($limit);
+		$this->db->offset($offset);
+		return $this->db->get();
+		
+	}
 	public function get_country_list()
 	{
 		$this->db->select('country_code,country_name');
@@ -208,26 +219,24 @@ class User  extends Userinfo
 	{
  
 		$this->load->library('bcrypt');
-	$this->db->where('user_id',$user_id);
-    $query = $this->db->get('users');
+		$this->db->where('user_id',$user_id);
+    	$query = $this->db->get('users');
 
-    if ($query->num_rows() > 0) {
+		if ($query->num_rows() > 0) {
 
-        $result = $query->row_array();
+			$result = $query->row_array();
 
-        if ($this->bcrypt->check_password($password, $result['password'])) {
-			
-			 
-            //We're good
-            return true;
-        } else {
-            //Wrong password
-            return false;
-        }
+			if ($this->bcrypt->check_password($password, $result['password'])) {
+				//We're good
+				return true;
+			} else {
+				//Wrong password
+				return false;
+			}
 
-    } else {
-        return false;
-    }
+		} else {
+			return false;
+		}
 	}
 	
 	public function check_empty_password($user_id)
@@ -298,43 +307,25 @@ class User  extends Userinfo
 	{
 		$success=false;
 		//Run these queries as a transaction, we want to make sure we do all or nothing
-		$this->db->trans_start();	
+		$this->db->trans_start();
 		if (parent::save($userinfo_data,$userlog_data,$permission_data,$user_id))
 		{
 			if (!empty($userlog_data)) {
 				
 				if (!$user_id or !$this->exists($user_id)) {
-				$userlog_data['user_id'] = $user_id = $userinfo_data['user_id'];
-				$success = $this->db->insert('users',$userlog_data);
+					$userlog_data['user_id'] = $user_id = $userinfo_data['user_id'];
+					$success = $this->db->insert('users',$userlog_data);
 			    }
 			    else {
-				$this->db->where('user_id', $user_id);
-				$success = $this->db->update('users',$userlog_data);		
+					$this->db->where('user_id', $user_id);
+					$success = $this->db->update('users',$userlog_data);		
 			    }
-				
 				
 			}
 			else {
 				$success=true;
 			}
-			
-			
-			//We have either inserted or updated a new user, now lets set permissions. 
-			if ($success) {
-				//First lets clear out any permissions the user currently has.
-				$success=$this->db->delete('permissions', array('user_id' => $user_id));
-				
-				//Now insert the new permissions
-				if ($success) {
-					foreach ($permission_data as $allowed_module) {
-						$success = $this->db->insert('permissions',
-						array(
-						'module_id'=>$allowed_module,
-						'user_id'=>$user_id));
-					}
-				}
-			}
-			
+						
 		}
 		$this->db->trans_complete();		
 		return $success;
@@ -538,19 +529,19 @@ class User  extends Userinfo
 
             $result = $query->row_array();
 
-        if ($this->bcrypt->check_password($password, $result['password'])) {
-			
-			$this->session->set_userdata('user_id', $result['user_id']) ;
-            //We're good
-            return $result;
-        } else {
-            //Wrong password
-            return false;
-        }
+			if ($this->bcrypt->check_password($password, $result['password'])) {
+				
+				$this->session->set_userdata('user_id', $result['user_id']) ;
+				//We're good
+				return $result;
+			} else {
+				//Wrong password
+				return false;
+			}
 
-    } else {
-        return false;
-    }
+		} else {
+			return false;
+		}
     }
 	
 	public function is_login_exist($username, $password)

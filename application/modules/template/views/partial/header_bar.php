@@ -13,7 +13,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </a>
           <!-- Navbar Right Logout Menu -->
           <div class="navbar-custom-menu">
-             
-          </div>
+        <ul class="nav navbar-nav">
+          
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="dist/img/user2-160x160.jpg" class="user-image">
+              <span class="hidden-xs">Alexander Pierce</span>
+            </a>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="#" data-toggle="control-sidebar"><span class="hidden-xs">Logout</span></a>
+          </li>
+        </ul>
+      </div>
+
+
         </nav> 
       </header>

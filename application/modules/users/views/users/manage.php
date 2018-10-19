@@ -18,7 +18,6 @@
        enable_row_selection();
        enable_search('<?php echo site_url("$controller_path/suggest")?>','<?php echo $this->lang->line("common_confirm_search")?>');
        enable_delete('<?php echo $this->lang->line("profiles_confirm_delete")?>','<?php echo $this->lang->line("profiles_none_selected")?>');
-   	
    
    }); 
    
@@ -80,12 +79,6 @@
          <section class="content">
             <div id="title_bar">
                <div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name); ?></div>
-               <div id="new_button">
-                  <?php echo anchor("$controller_path/view/-1/width:$form_width",
-                     "<div class='big_button float_left'><span>".$this->lang->line('profiles_new')."</span></div>",
-                     array('class'=>'thickbox none','title'=>$this->lang->line($controller_name.'_new')));
-                     ?>
-               </div>
             </div>
             <div id="pagging">
                <?php echo $this->pagination->create_links();?>
@@ -102,6 +95,7 @@
                    
  
                      <?php echo form_open("$controller_path/search",array('id'=>'search_form')); ?>
+                     <label>Search: </label>
                      <input type="text"  placeholder=" Search..." name ='search' id='search'/>
                      </form>
                   </li>
@@ -109,6 +103,13 @@
             </div>
             <div id="table_holder">
                <?php echo $manage_table; ?>
+            </div>
+
+            <div id="new_button">
+                  <?php echo anchor("$controller_path/view",
+                     "<div class='big_button float_left'><span>".$this->lang->line('profiles_new')."</span></div>",
+                     array('class'=>'','title'=>$this->lang->line($controller_name.'_new')));
+                     ?>
             </div>
             <div id="feedback_bar"></div>
             </article>

@@ -9,9 +9,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<link rel="shortcut icon" href="<?php echo base_url();?>favicon.png" type="image/x-icon">
 	<title> <?php  echo $this->config->item('company'); ?> :: <?php echo  $this->lang->line('module_'.$this->router->fetch_class()) ?> </title>
     <link rel="stylesheet" href="<?php echo base_url();?>assets/bootstrap/css/bootstrap.min.css">
-    <link href="<?php echo base_url();?>assets/css/materialize.css" rel="stylesheet" type="text/css" /> 
+    
     <!-- Font Awesome Icons -->
-    <link href="<?php echo base_url();?>assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo base_url();?>assets/adminlte/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins

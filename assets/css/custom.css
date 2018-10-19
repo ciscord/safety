@@ -72,13 +72,9 @@ select:disabled {
 
  input[type="text"]#search 
 {
-	    background-color: #0a6184;
- 
-    border-radius: 5px;
-     padding-left: 5%;  
-     padding-right: 5%;  
-    width: 90%;
-    color: #FFF;
+	 margin-right: 20px;
+	 margin-bottom: 10px;
+	 border: 1px solid #ccc;
 }
  
 #search::-webkit-input-placeholder {
@@ -181,13 +177,27 @@ label.required
 {
 	font-size:11px;
 }
+
+
+#popup_title {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.75em;
+    color: #FFF;
+    background: #FF8F00 !important;
+    cursor: default;
+    padding: 0em;
+    margin: 0em;
+}
+
 #popup_content [type="button"]
 {
-    background-color: #0a6184;
+    background-color: #FF8F00;
     text-decoration: none;
     text-transform: uppercase;
     padding: 4px 10px;
-    background: #0a6184;
+    background: #FF8F00;
     -moz-transition: all .2s ease-in;
     -o-transition: all .2s ease-in;
     -webkit-transition: all .2s ease-in;
@@ -197,9 +207,9 @@ label.required
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-    -webkit-box-shadow: inset 0px 1px 0px #0a6184, 0px 3px 0px 0px #4e656f, 0px 2px 1px #4d4d4d;
-    -moz-box-shadow: inset 0px 1px 0px #0a6184, 0px 3px 0px 0px #4e656f, 0px 2px 1px #4d4d4d;
-    box-shadow: inset 0px 1px 0px #0a6184, 0px 3px 0px 0px #4e656f, 0px 2px 1px #4d4d4d;
+    -webkit-box-shadow: inset 0px 1px 0px #FF8F00, 0px 3px 0px 0px #FF8F30, 0px 2px 1px #FF7700;
+    -moz-box-shadow: inset 0px 1px 0px #FF8F00, 0px 3px 0px 0px #FF8F30, 0px 2px 1px #FF7700;
+    box-shadow: inset 0px 1px 0px #FF8F00, 0px 3px 0px 0px #FF8F30, 0px 2px 1px #FF7700;
     color: #fff;
     font-size: .9em;
 
@@ -616,7 +626,7 @@ margin-top:15%;
 	font-size:30px;
 	font-weight:bold;
 	color:#000000;
-	text-align:center;
+	text-align:left;
 
 }
 
@@ -631,7 +641,6 @@ margin-top:15%;
 
 #new_button
 {
-	position:absolute;
 	bottom:-5px;
 	right:0px;
 }
@@ -777,7 +786,7 @@ table.tablesorter
 	position:relative;
 	width:100%;
 	border-collapse:collapse;
-	min-width:550px;
+	min-width:320px;
 }
 
 table.tablesorter  tr:nth-child(2n+1) {
@@ -849,8 +858,9 @@ table.innertable thead tr th
 }
 
 .big_button {
-    background-image: url(../images/Newbuttons.png);
-    background-size: 120px 35px;
+    background-color: #FF8F00;
+	border-radius: .25em;
+	color: #fff;
 }
 .submit_button {
     background-color: #0a6184;
@@ -977,20 +987,24 @@ ul.tsc_paginationA01 li.current a {
 {
 	margin-top:10px;
 }
-.login_form .form-group,
-.registration_form .form-group,
-.profile_form .form-group {
-    padding-bottom: 50px;
-}
+
 .login_form {
     margin: auto;
     margin-top: 150px;
 
 }
+
+.profile_form {
+	background-color: #fff;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+
 @media (min-width: 768px)
 {
 .login_form {
-    width: 600px;
+    width: 300px;
     margin: auto;
     margin-top: 150px;
 
@@ -1041,7 +1055,6 @@ ul.tsc_paginationA01 li.current a {
     }
 
     .profile_form {
-        width: 600px;
         margin: auto;
     }
 }
@@ -1062,7 +1075,7 @@ ul.tsc_paginationA01 li.current a {
 
 #config_info
 {
-	width:70%;
+	width:100%;
 	margin:0 auto;
 	padding:10px;
 	margin-bottom:30px;
@@ -1113,9 +1126,6 @@ ul.tsc_paginationA01 li.current a {
     padding-top: 0;
  }
  
- #login_form .checkbox{
-	float:right;
- } 
  #login_form .form-group.remember-me{
 	padding-bottom:0;
  } 
@@ -1184,7 +1194,6 @@ ul.tsc_paginationA01 li.current a {
     border-top-color: #3C8DBC;
 }
 .user_profile .box {
-    background: none;
     box-shadow: none;
 }
 #required_fields_message {

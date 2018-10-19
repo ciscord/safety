@@ -224,35 +224,22 @@ class Profiles extends Secure_area implements iData_controller
 	*/
 	public function save($user_id=-1)
 	{
-	    $this->form_validation->set_rules('first_name', $this->lang->line('profiles_first_name'), 'required|max_length[250]');
+		$this->form_validation->set_rules('first_name', $this->lang->line('profiles_first_name'), 'required|max_length[250]');
 		$this->form_validation->set_rules('last_name',  $this->lang->line('profiles_last_name'), 'max_length[250]');
 		$this->form_validation->set_rules('phone_number',  $this->lang->line('profiles_phone'), 'max_length[250]');
-		$this->form_validation->set_rules('state',  $this->lang->line('profiles_state'), 'max_length[250]');
-		$this->form_validation->set_rules('city',  $this->lang->line('profiles_city'), 'max_length[250]');
-		$this->form_validation->set_rules('address',  $this->lang->line('profiles_address'), 'max_length[2000]');
-		$this->form_validation->set_rules('comments',  $this->lang->line('profiles_comments'), 'max_length[2000]');
-		$this->form_validation->set_error_delimiters('<div class="error" ><h5 align="center" style="color: #DA1111;">', '</h5></div>');
-		
+		$this->form_validation->set_rules('email',  $this->lang->line('profiles_email'), 'max_length[250]');
 		if ($this->form_validation->run() == FALSE) {
-		   $this->index();
+			echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_validation_error').' '.
+			'','user_id'=>'-1'));
+			return;
         }
         else {
-		    $dobmonth=$this->input->post('dobmonth');
-	        $dobday=$this->input->post('dobday');
-	        $dobyear=$this->input->post('dobyear');
-	        $dob= date("Y-m-d", strtotime("$dobyear-$dobmonth-$dobday")); 
-	        $person_data = array(
+			
+			$person_data = array(
 		    'first_name'=>$this->input->post('first_name'),
 		    'last_name'=>$this->input->post('last_name'),
 		    'phone_number'=>$this->input->post('phone_number'),
-		    'city'=>$this->input->post('city'),
-		    'state'=>$this->input->post('state'),
-		    'dob'=>$dob,
-		    'country_code'=>$this->input->post('country'),
-		    'country_name'=>$this->input->post('country_name'),
-		    'marital_status'=>$this->input->post('marital_status'),
-		    'comments'=>$this->input->post('comments'),
-		    'address'=>$this->input->post('address')
+		    'email'=>$this->input->post('email')
 		    );
 			if($user_id==-1){
 			    $userinfo_data['email'] = $this->input->post('email');
@@ -265,12 +252,14 @@ class Profiles extends Secure_area implements iData_controller
 		
 		    if ($this->Userinfo->save($person_data,$userlog_data,$permission_data,$user_id)) {
 		    echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_updating').' '.
-		    $person_data['first_name'],'user_id'=>$user_id));
+			$person_data['first_name'],'user_id'=>$user_id));
+			return;
 		    }
 		    else //failure
 		    {	
 			    echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_error_adding_updating').' '.
-			    $person_data['first_name'].' '.$person_data['last_name'],'person_id'=>-1));
+				$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>-1));
+				return;
 		    }
 		
 		}

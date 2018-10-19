@@ -8,6 +8,7 @@ class Users extends Secure_area implements iData_controller
 	public function __construct()
 	{
 		parent::__construct('users');
+		$this->load->helper('usertable');
 	}
 	
 	public function index()
@@ -24,12 +25,12 @@ class Users extends Secure_area implements iData_controller
 		$data['form_width']=$this->get_form_width();
 		$data['content_view']='users/users/manage';
  
-		$data['manage_table']=get_people_manage_table( $this->User->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
+		$data['manage_table']=get_user_manage_table( $this->User->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
 		$this->load->module("template");
 		$this->template->manage_tables_template($data);
  
 	}
-	
+
 	/*
 	Returns user table data rows. This will be called with AJAX.
 	*/
@@ -94,7 +95,7 @@ class Users extends Secure_area implements iData_controller
 	}
 	
 	
-		public function get_registration_date($data,$selected_month="",$selected_day="",$selected_year="")
+	public function get_registration_date($data,$selected_month="",$selected_day="",$selected_year="")
 	{
 		$months = array();
 	    for ($k=1;$k<=12;$k++) {
@@ -136,47 +137,31 @@ class Users extends Secure_area implements iData_controller
 	*/
 	public function view($user_id=-1)
 	{
-		// get all user details by user id
-	    $data['user_info']=$this->User->get_info($user_id);
-		// dob of user
-	    $dob=$data['user_info']->dob;
-	    if ($dob=="0000-00-00" || $dob==""){
-	        $d_o_b="0000-00-00";
-	    }
-	    else {
-            $d_o_b= date("Y-m-d", strtotime($dob));
-	    }
-	   
-	    $split_date = explode("-", $d_o_b);
-	    $year = $split_date[0];
-	    $month = $split_date[1];
-	    $day = $split_date[2];
-	    $data=$this->get_dob_date($data,$month,$day,$year);
-
-	    // registration date of user account
-	    $dateofregistration=$data['user_info']->register_date;
-	    if ($dateofregistration==""){
-	        $date_of_registration= date("Y-m-d");
-	    }
-	    else {
-	        $date_of_registration= date("Y-m-d", strtotime($dateofregistration));
-	    }
-	 
-		$split_date = explode("-", $date_of_registration);
-		$cyear = $split_date[0];
-		$cmonth = $split_date[1];
-		$cday = $split_date[2];
-		$data=$this->get_registration_date($data,$cmonth,$cday,$cyear);
-		
+		$data['user_info']=$this->User->get_info($user_id);
 		$data['all_modules']=$this->Module->get_editable_modules();
-
-		
-		if ($user_id==-1) {//new user
-		    $this->load->view("users/users//new_user_form",$data);
+		if ($user_id==-1) {//new admin user form 
+			$data['content_view']='users/users/admin_user_form';//this is for admin form
 		}
 	    else {
-		    $this->load->view("users/users/form",$data);
-	    }
+		    $data['content_view']='users/users/form';
+		}
+		
+		$config['base_url'] = site_url('users/users/index');
+		$this->load->library('pagination'); 
+		$config['total_rows'] = $this->User->count_all();
+		$config['per_page'] = $this->config->item('pagination_limit'); //Get page limit from config settings 
+		$config['uri_segment'] = 4;
+		$this->pagination->initialize($config);
+		
+		$data['controller_name']=strtolower(get_class());
+		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();;
+		$data['form_width']=$this->get_form_width();
+		
+ 
+		$data['manage_table']=get_user_manage_table( $this->User->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
+		$this->load->module("template");
+		$this->template->manage_user_template($data);
+
 	}
 	
 	public function edit_profile_image($user_id=-1)
@@ -189,17 +174,13 @@ class Users extends Secure_area implements iData_controller
 	public function save_profile_pic($user_id=-1)
 	{
  
-			if (isset($GLOBALS["HTTP_RAW_POST_DATA"]))
-			
-			{
+		if (isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
 			// Get the data
 			$imageData=$GLOBALS['HTTP_RAW_POST_DATA'];
 
 			$filter_filename=substr($imageData,0, strpos($imageData, ","));
 			$filteredData=substr($imageData, strrpos($imageData, ",")+1);
 			$targetDir = './uploads/'.$user_id;
-			
-			 
 			
 			$userinfo_data = array
 			(
@@ -256,105 +237,71 @@ class Users extends Secure_area implements iData_controller
 	    $data['user_info']=$this->User->get_info($user_id);
 		$this->load->view("users/users/login_info",$data);
 	}
-	
+	public function addadmin() {
+		$this->save(-1, 1);
+	}
 	/*
 	Inserts/updates an user
 	*/
-	public function save($user_id=-1)
+	public function save($user_id=-1, $user_level=0)//user_level=0 : undefined, 1: admin
 	{
 		$this->load->library('bcrypt');
 	    //server side validation
 		$this->form_validation->set_rules('first_name', $this->lang->line('profiles_first_name'), 'required|max_length[250]');
 		$this->form_validation->set_rules('last_name',  $this->lang->line('profiles_last_name'), 'max_length[250]');
 		$this->form_validation->set_rules('phone_number',  $this->lang->line('profiles_phone'), 'max_length[250]');
-		$this->form_validation->set_rules('state',  $this->lang->line('profiles_state'), 'max_length[250]');
-		$this->form_validation->set_rules('city',  $this->lang->line('profiles_city'), 'max_length[250]');
-		$this->form_validation->set_rules('address',  $this->lang->line('profiles_address'), 'max_length[2000]');
-		$this->form_validation->set_rules('comments',  $this->lang->line('profiles_comments'), 'max_length[2000]');
+		$this->form_validation->set_rules('email',  $this->lang->line('profiles_email'), 'max_length[250]');
 		
 		$usermailcount=0;
 		
 		if($user_id==-1) {
 			$this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[250]');
-		    $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|max_length[250]');
 		    $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]|max_length[250]');
 		}
 		if ($this->form_validation->run() == FALSE) {
-		    $error_message="<ul><li>".form_error('first_name')."</li><li>".form_error('last_name')."</li><li>".form_error('phone_number')."</li><li>".form_error('state')."</li><li>".form_error('city')."</li><li>".form_error('address')."</li><li>".form_error('comments')."</li><li>".form_error('username')."</li><li>".form_error('password')."</li><li>".form_error('email')."</li></ul>";
+		    $error_message="<ul><li>".form_error('first_name')."</li><li>".form_error('last_name')."</li><li>".form_error('phone_number')."</li><li>".form_error('password')."</li><li>".form_error('email')."</li></ul>";
 		    echo json_encode(array('success'=>false,'message'=>$error_message));
-        }	
-		
-		else {
-		    $dobmonth=$this->input->post('dobmonth');
-	        $dobday=$this->input->post('dobday');
-	        $dobyear=$this->input->post('dobyear');
-	        $dob= date("Y-m-d", strtotime("$dobyear-$dobmonth-$dobday")); 
-	  
-	        $rmonth=$this->input->post('rmonth');
-	        $rday=$this->input->post('rday');
-	        $ryear=$this->input->post('ryear');
-	        $date_of_registration= date("Y-m-d", strtotime("$ryear-$rmonth-$rday"));
-	  
-	        $userinfo_data = array(
-		    'first_name'=>$this->input->post('first_name'),
-		    'last_name'=>$this->input->post('last_name'),
-		    'phone_number'=>$this->input->post('phone_number'),
-		    'city'=>$this->input->post('city'),
-		    'state'=>$this->input->post('state'),
-		    'register_date'=>$date_of_registration,
-		    'dob'=>$dob,
-		    'country_code'=>$this->input->post('country'),
-		    'country_name'=>$this->input->post('country_name'),
-		    'marital_status'=>$this->input->post('marital_status'),
-		    'comments'=>$this->input->post('comments'),
-		    'address'=>$this->input->post('address')
+        }else {
+		    $userinfo_data = array(
+				'first_name'=>$this->input->post('first_name'),
+				'last_name'=>$this->input->post('last_name'),
+				'phone_number'=>$this->input->post('phone_number'),
+				'employee'=>$this->input->post('employee'),
+				'pin'=>$this->input->post('pin'),
+		  
 		    );
-			if($user_id==-1){
+			if($user_id == -1){
 				$userinfo_data['email'] = $email = $this->input->post('email');
 				$usermailcount=$this->User->check_email($email,$user_id);
-			}
-			
+			}			
 		   
-		    $permission_data = $this->input->post("permissions")!=false ? $this->input->post("permissions"):array();
 		    if ($this->input->post('password')!='') {
 			    $userlog_data=array(
-			    'username'=>$this->input->post('username'),
+			    'username'=>$this->input->post('email'),
 				'password'=>($this->bcrypt->hash_password($this->input->post('password'))),
-			    'active'=>($this->input->post('_status'))
+				'active'=>'0',
+				'user_level'=>$user_level
 			    );
 		    }
-		    else {  
-			     $userlog_data=array(
-			    'active'=>($this->input->post('_status'))
-			    );
-		    }
-		
-		    $user=$this->input->post('username');
-		    $usercount=$this->User->check_username($user,$user_id);
-			
-			if($user_id==-1 && $usermailcount!=0){
+					
+			if($user_id ==-1 && $usermailcount != 0){//new user but email exist on database
 				echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_email_exist')));
-			}
-		    else if ($usercount!=0) {
-		        echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_username_exist')));
-		    }
-		    else {
+			}else {
 
-
-		       if ($this->User->save($userinfo_data,$userlog_data,$permission_data,$user_id)) {
+		       if ($this->User->save($userinfo_data,$userlog_data,$user_id)) {
 			    //New user
 			        if ($user_id==-1) {
 				        echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_adding').' '.
 						html_escape($this->security->xss_clean($userinfo_data['first_name'])).' '.html_escape($this->security->xss_clean($userinfo_data['last_name'])),'user_id'=>$userlog_data['user_id']));	
-			    }
-			    else {  //previous user
-				    echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_updating').' '.
-				    html_escape($this->security->xss_clean($userinfo_data['first_name'])),'user_id'=>$user_id));
-			    }
+					}
+					else {  //previous user
+						echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_updating').' '.
+						html_escape($this->security->xss_clean($userinfo_data['first_name'])),'user_id'=>$user_id));
+					}
 		        }
 		        else {	 //failure
-			    echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_error_adding_updating').' '.
-			    html_escape($this->security->xss_clean($userinfo_data['first_name'])).' '.$this->security->xss_clean($userinfo_data['last_name']),'user_id'=>-1));
+					echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_error_adding_updating').' '.
+					html_escape($this->security->xss_clean($userinfo_data['first_name'])).' '.$this->security->xss_clean($userinfo_data['last_name']),'user_id'=>-1));
 		        }
 		
 		    }
@@ -409,7 +356,7 @@ class Users extends Secure_area implements iData_controller
 				    echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_updating').' ','user_id'=>$user_id));
 				}
 				else {	 //failure
-				echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_error_adding_updating').' ','user_id'=>$user_id));
+					echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_error_adding_updating').' ','user_id'=>$user_id));
 				}
 			}
 		

@@ -7,7 +7,19 @@ class Dashboard extends CI_Model
     {
         parent::__construct();
     }
-	
+	public function totalCompanies()
+	{
+		$this->db->from('companies');
+		$this->db->where('deleted',0);
+		return $this->db->count_all_results();
+	}
+	public function total_admins()
+	{
+		$this->db->from('users');
+		$this->db->where('deleted',0);
+		$this->db->where('user_level',1);
+		return $this->db->count_all_results();
+	}
 	public function totalUsers()
 	{
 		$this->db->from('users');

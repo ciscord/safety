@@ -1,7 +1,7 @@
 <?php
 $lang['icon_view']="<i class='fa fa-eye'></i>";
 $lang['icon_user_view']="<i class='fa fa-user' ></i>";
-$lang['icon_edit']="<i class='fa fa-pencil-square-o'></i>";
+$lang['icon_edit']="<i class='fa fa-edit'></i>";
 $lang['icon_image']="<i class='fa fa-file-image-o'></i>";
 $lang['icon_delete']="<i class='fa fa-trash-o'></i>";
 $lang['icon_undo']="<i class='fa fa-undo'></i>";

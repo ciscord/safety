@@ -1,5 +1,5 @@
 <?php
-$lang['login_login']='Log In';
+$lang['login_login']='Sign In';
 $lang['login_delete_install']='Delete Install';
 $lang['login_register']='Register';
 $lang['login_forget']='Forget Password';

@@ -7,7 +7,6 @@ $baseDir = dirname(dirname($vendorDir));
 
 return array(
     'Datamatrix' => $vendorDir . '/tecnickcom/tcpdf/include/barcodes/datamatrix.php',
-    'EasyPeasyICS' => $vendorDir . '/phpmailer/phpmailer/extras/EasyPeasyICS.php',
     'Hybrid_Auth' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Auth.php',
     'Hybrid_Endpoint' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Endpoint.php',
     'Hybrid_Error' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Error.php',
@@ -25,6 +24,7 @@ return array(
     'Hybrid_Providers_LinkedIn' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/LinkedIn.php',
     'Hybrid_Providers_Live' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/Live.php',
     'Hybrid_Providers_OpenID' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/OpenID.php',
+    'Hybrid_Providers_Paypal' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/Paypal.php',
     'Hybrid_Providers_Twitter' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/Twitter.php',
     'Hybrid_Providers_Yahoo' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/Yahoo.php',
     'Hybrid_Storage' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Storage.php',
@@ -48,12 +48,7 @@ return array(
     'OAuthToken' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/thirdparty/OAuth/OAuth.php',
     'OAuthUtil' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/thirdparty/OAuth/OAuth.php',
     'PDF417' => $vendorDir . '/tecnickcom/tcpdf/include/barcodes/pdf417.php',
-    'PHPMailer' => $vendorDir . '/phpmailer/phpmailer/class.phpmailer.php',
-    'PHPMailerOAuth' => $vendorDir . '/phpmailer/phpmailer/class.phpmaileroauth.php',
-    'PHPMailerOAuthGoogle' => $vendorDir . '/phpmailer/phpmailer/class.phpmaileroauthgoogle.php',
-    'POP3' => $vendorDir . '/phpmailer/phpmailer/class.pop3.php',
     'QRcode' => $vendorDir . '/tecnickcom/tcpdf/include/barcodes/qrcode.php',
-    'SMTP' => $vendorDir . '/phpmailer/phpmailer/class.smtp.php',
     'TCPDF' => $vendorDir . '/tecnickcom/tcpdf/tcpdf.php',
     'TCPDF2DBarcode' => $vendorDir . '/tecnickcom/tcpdf/tcpdf_barcodes_2d.php',
     'TCPDFBarcode' => $vendorDir . '/tecnickcom/tcpdf/tcpdf_barcodes_1d.php',
@@ -65,6 +60,4 @@ return array(
     'TCPDF_IMPORT' => $vendorDir . '/tecnickcom/tcpdf/tcpdf_import.php',
     'TCPDF_PARSER' => $vendorDir . '/tecnickcom/tcpdf/tcpdf_parser.php',
     'TCPDF_STATIC' => $vendorDir . '/tecnickcom/tcpdf/include/tcpdf_static.php',
-    'ntlm_sasl_client_class' => $vendorDir . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
-    'phpmailerException' => $vendorDir . '/phpmailer/phpmailer/class.phpmailer.php',
 );

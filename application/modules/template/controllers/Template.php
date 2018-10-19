@@ -18,6 +18,11 @@ class Template extends UNF_Controller
 	{
 		$this->load->view("template/manage_tables_template",$data);
 	}
+
+	public function manage_user_template($data=NULL)
+	{
+		$this->load->view("template/manage_user_template",$data);
+	}
 	
 	public function login_template($data=NULL)
 	{

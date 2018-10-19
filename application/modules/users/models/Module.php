@@ -78,5 +78,6 @@ class Module extends CI_Model
 		$this->db->order_by("modules.sort", "asc");
 		return $this->db->get();		
 	}
+
 }
 
