@@ -37,8 +37,8 @@
    <?php echo form_label($this->lang->line('profiles_country').':', 'country'); ?>
    <div class='form_field'>
         <?php 
-                        $attr=array('id'=>'country_list');
-                        $query =$this->User_model->get_country_list();
+            $attr=array('id'=>'country_list');
+            $query =$this->User_model->get_country_list();
 						
 						 foreach($query->result_array() as $row)
                          {

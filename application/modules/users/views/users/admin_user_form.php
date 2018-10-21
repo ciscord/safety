@@ -1,137 +1,148 @@
 
-    <div class="content-wrapper">
-         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div id="page_title"><?php  echo $this->lang->line("module_admin_add");  ?> </div>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-tachometer-alt"></i> Home</a></li>
-                    <li class="active">Admin</li>
-                    <li class="active">Add</li>
-                </ol>
-        </section>
+<div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div id="page_title">
+            <?php  echo $this->lang->line("common_admin");
+            echo str_repeat('&nbsp;', 3);
+            $title = ($user_id == -1) ? $this->lang->line("common_add") : $this->lang->line("common_edit");
 
-         <!-- Main content -->
-         <section class="content">
+            echo $title;?> 
+        </div>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-tachometer-alt"></i> Home</a></li>
+            <li class="active">Admin</li>
+            <li class="active"> <?php 
+                echo $title;
+            ?></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+    
+    <?php
+        echo form_open('users/users/addadmin' ,array('id'=>'add_user_form'));
+    ?>
+     <input type="hidden" id="user_id" name="user_id" value=<?php echo $user_id?>>
+
+    <div class="row">
+        <div class="col-lg-6 col-sm-6">                
+            <div class='form-group'>
+            <?php echo form_label($this->lang->line('profiles_employee').'#*', 'employee',array('class'=>'wide')); ?>
+                <?php echo form_input(array(
+                    'name'=>'employee',
+                    'class' => 'form-control',
+                    'id'=>'employee',
+                    'value'=>$user_info->employee));?>
+            </div>
             
-            <?php
-            echo form_open('users/users/addadmin' ,array('id'=>'add_user_form'));
-            ?>
-            <div class="row">
-                <div class="col-lg-6 col-sm-6">                
-                    <div class='form-group'>
-                    <?php echo form_label($this->lang->line('profiles_employee').'#*', 'employee',array('class'=>'wide')); ?>
-                        <?php echo form_input(array(
-                            'name'=>'employee',
-                            'class' => 'form-control',
-                            'id'=>'employee',
-                            'value'=>$user_info->email));?>
-                    </div>
-                    
-                </div>
+        </div>
 
-                <div class="col-lg-6 col-sm-6">                
-                    <div class='form-group'>
-                    <?php echo form_label($this->lang->line('profiles_pin').'#*', 'pin',array('class'=>'wide')); ?>
-                        <?php echo form_input(array(
-                            'name'=>'pin',
-                            'class' => 'form-control',
-                            'id'=>'pin',
-                            'value'=>$user_info->email));?>
-                    </div>
-                    
-                </div>
+        <div class="col-lg-6 col-sm-6">                
+            <div class='form-group'>
+            <?php echo form_label($this->lang->line('profiles_pin').'#*', 'pin',array('class'=>'wide')); ?>
+                <?php echo form_input(array(
+                    'name'=>'pin',
+                    'class' => 'form-control',
+                    'id'=>'pin',
+                    'value'=>$user_info->pin));?>
             </div>
+            
+        </div>
+    </div>
 
-            <div class="row">
-                <div class="col-lg-6 col-sm-6">                
-                    <div class='form-group'>
-                    <?php echo form_label($this->lang->line('profiles_first_name').'*', 'first_name',array('class'=>'wide')); ?>
-                        <?php echo form_input(array(
-                            'name'=>'first_name',
-                            'class' => 'form-control',
-                            'id'=>'first_name',
-                            'value'=>$user_info->email));?>
-                    </div>
-                    
-                </div>
-
-                <div class="col-lg-6 col-sm-6">                
-                    <div class='form-group'>
-                    <?php echo form_label($this->lang->line('profiles_last_name').'*', 'last_name',array('class'=>'wide')); ?>
-                        <?php echo form_input(array(
-                            'name'=>'last_name',
-                            'class' => 'form-control',
-                            'id'=>'last_name',
-                            'value'=>$user_info->email));?>
-                    </div>
-                    
-                </div>
+    <div class="row">
+        <div class="col-lg-6 col-sm-6">                
+            <div class='form-group'>
+            <?php echo form_label($this->lang->line('profiles_first_name').'*', 'first_name',array('class'=>'wide')); ?>
+                <?php echo form_input(array(
+                    'name'=>'first_name',
+                    'class' => 'form-control',
+                    'id'=>'first_name',
+                    'value'=>$user_info->first_name));?>
             </div>
+            
+        </div>
 
-            <div class="row">
-                <div class="col-lg-6 col-sm-6">                
-                    <div class='form-group'>
-                    <?php echo form_label($this->lang->line('profiles_phone').'*', 'phone_number',array('class'=>'wide')); ?>
-                        <?php echo form_input(array(
-                            'name'=>'phone_number',
-                            'class' => 'form-control',
-                            'id'=>'phone_number',
-                            'value'=>$user_info->email));?>
-                    </div>
-                    
-                </div>
-
-                <div class="col-lg-6 col-sm-6">                
-                    <div class='form-group'>
-                    <?php echo form_label($this->lang->line('profiles_email').'*', 'email',array('class'=>'wide')); ?>
-                        <?php echo form_input(array(
-                            'name'=>'email',
-                            'class' => 'form-control',
-                            'id'=>'email',
-                            'value'=>$user_info->email));?>
-                    </div>
-                    
-                </div>
+        <div class="col-lg-6 col-sm-6">                
+            <div class='form-group'>
+            <?php echo form_label($this->lang->line('profiles_last_name').'*', 'last_name',array('class'=>'wide')); ?>
+                <?php echo form_input(array(
+                    'name'=>'last_name',
+                    'class' => 'form-control',
+                    'id'=>'last_name',
+                    'value'=>$user_info->last_name));?>
             </div>
+            
+        </div>
+    </div>
 
-            <div class="row">
-                <div class="col-lg-6 col-sm-6">                
-                    <div class='form-group'>
-                    <?php echo form_label($this->lang->line('login_password').'*', 'password',array('class'=>'wide')); ?>
-                        <?php echo form_password(array(
-                            'name'=>'password',
-                            'class' => 'form-control',
-                            'id'=>'password'
-                        ));?>
-                    </div>
-                    
-                </div>
-
-                <div class="col-lg-6 col-sm-6">                
-                    <div class='form-group'>
-                    <?php echo form_label($this->lang->line('confirmpassword').'*', 'repeat_password',array('class'=>'wide')); ?>
-                        <?php echo form_password(array(
-                            'name'=>'repeat_password',
-                            'class' => 'form-control',
-                            'id'=>'repeat_password'
-                        ));?>
-                    </div>
-                    
-                </div>
+    <div class="row">
+        <div class="col-lg-6 col-sm-6">                
+            <div class='form-group'>
+            <?php echo form_label($this->lang->line('profiles_phone').'*', 'phone_number',array('class'=>'wide')); ?>
+                <?php echo form_input(array(
+                    'name'=>'phone_number',
+                    'class' => 'form-control',
+                    'id'=>'phone_number',
+                    'value'=>$user_info->phone_number));?>
             </div>
+            
+        </div>
 
-            <div id="new_button">
-            <?php
-                echo form_submit(array(
-                    'name'=>'submit',
-                    'id'=>'submit',
-                    'value'=>$this->lang->line('profiles_submit'),
-                    'class'=>'big_button float_left')
-                );
-                
-            ?>
-
+        <div class="col-lg-6 col-sm-6">                
+            <div class='form-group'>
+            <?php echo form_label($this->lang->line('profiles_email').'*', 'email',array('class'=>'wide')); ?>
+                <?php echo form_input(array(
+                    'name'=>'email',
+                    'class' => 'form-control',
+                    'id'=>'email',
+                    'value'=>$user_info->email));?>
             </div>
+            
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-sm-6">                
+            <div class='form-group'>
+            <?php echo form_label($this->lang->line('login_password').'*', 'password',array('class'=>'wide')); ?>
+                <?php echo form_password(array(
+                    'name'=>'password',
+                    'class' => 'form-control',
+                    'id'=>'password'
+                ));?>
+            </div>
+            
+        </div>
+
+        <div class="col-lg-6 col-sm-6">                
+            <div class='form-group'>
+            <?php echo form_label($this->lang->line('confirmpassword').'*', 'repeat_password',array('class'=>'wide')); ?>
+                <?php echo form_password(array(
+                    'name'=>'repeat_password',
+                    'class' => 'form-control',
+                    'id'=>'repeat_password'
+                ));?>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="new_button">
+    <?php
+        $buttonTitle = ($user_id == -1) ? $this->lang->line('profiles_submit') : $this->lang->line('common_update');
+        echo form_submit(array(
+            'name'=>'submit',
+            'id'=>'submit',
+            'value'=> $buttonTitle,
+            'class'=>'big_button float_left')
+        );
+        
+    ?>
+
+    </div>
 
    
 </fieldset>
@@ -181,8 +192,6 @@
       			
       			password:
       			{
-      				required:true,
-      				minlength: 8,
       				maxlength: 250
       			},	
       			repeat_password:

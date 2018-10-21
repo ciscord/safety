@@ -15,8 +15,6 @@ else
 echo $upload_path."/".$default_image_name;?>?<?php echo time(); //to prevent browser image caching ?>" alt="Avatar">
   </div>
 
-		                                      
-      
 	    <div class="col-md-12 docs-buttons center">
         <div class="btn-group">
           <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">

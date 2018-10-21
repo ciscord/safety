@@ -28,7 +28,6 @@ class Trashes extends Secure_area implements iData_controller
 		$this->load->module("template");
 		$this->template->manage_tables_template($data);
 	}
-	
 		
 	public function get_dob_date($data,$selected_month="",$selected_day="",$selected_year="")
 	{

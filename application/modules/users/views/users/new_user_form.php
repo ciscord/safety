@@ -14,16 +14,15 @@
    <legend><?php echo $this->lang->line("profiles_login_info"); ?></legend>
    
    
-<div class="field_row clearfix">
-   <?php echo form_label($this->lang->line('profiles_email').':', 'email',array('class'=>'required wide')); ?>
-   <div class='form_field'>
-      <?php echo form_input(array(
-         'name'=>'email',
-         'id'=>'email',
-         'value'=>$user_info->email));?>
-   </div>
-</div>
-
+    <div class="field_row clearfix">
+    <?php echo form_label($this->lang->line('profiles_email').':', 'email',array('class'=>'required wide')); ?>
+    <div class='form_field'>
+        <?php echo form_input(array(
+            'name'=>'email',
+            'id'=>'email',
+            'value'=>$user_info->email));?>
+    </div>
+    </div>
 
    <div class="field_row clearfix">
       <?php echo form_label($this->lang->line('login_username').':', 'username',array('class'=>'required wide')); ?>

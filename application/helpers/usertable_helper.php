@@ -49,11 +49,14 @@ function get_user_manage_table_data_rows($people,$controller)
 
 function get_user_data_row($data_row,$controller)
 {
+	if ($data_row->user_id == 1) {//do not show root admin
+		return;
+	}
 	$CI =& get_instance();
 	$controller_path=$CI->router->fetch_module()."/".$CI->router->fetch_class();
 	$width = $controller->get_form_width();
     
-	$table_data_row='<tr>';	
+	$table_data_row='<tr id='.$data_row->user_id.'>';	
 	// $table_data_row.="<td width='5%'><input type='checkbox' id='user_$data_row->user_id' value='".$data_row->user_id."'/></td>";
 
 	// Apply the xss_clean() of "security" library, which filtered data from passing through <script> tag.
@@ -67,7 +70,7 @@ function get_user_data_row($data_row,$controller)
     else
 	$table_data_row.='<td width="10%"><span class="label label-danger">'.$CI->lang->line('profiles_deactivated').'</span></td>';	
 
-	$table_data_row.='<td width="10%">'.anchor($controller_path."/view/$data_row->user_id", $CI->lang->line('icon_edit'),array('class'=>'thickbox','title'=>$CI->lang->line('common_edit'))).str_repeat('&nbsp;', 5).anchor($controller_path."/deletebyid/$data_row->user_id", $CI->lang->line('icon_delete'),array('class'=>'thickbox','title'=>$CI->lang->line('common_edit'))).'</td>';		
+	$table_data_row.='<td width="10%">'.anchor($controller_path."/view/$data_row->user_id", $CI->lang->line('icon_edit'),array('class'=>'edit','title'=>$CI->lang->line('common_edit'))).str_repeat('&nbsp;', 5).'<a class="remove"><i class="fa fa-trash-alt"></i></a></td>';		
 
 	$table_data_row.='</tr>';
 	

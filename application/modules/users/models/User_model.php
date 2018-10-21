@@ -303,16 +303,16 @@ class User_model  extends Userinfo_model
 	/*
 	Inserts or updates an user
 	*/
-	public function save(&$userinfo_data, &$userlog_data,&$permission_data,$user_id=false)
+	public function save(&$userinfo_data, &$userlog_data,$user_id=-1)
 	{
 		$success=false;
 		//Run these queries as a transaction, we want to make sure we do all or nothing
 		$this->db->trans_start();
-		if (parent::save($userinfo_data,$userlog_data,$permission_data,$user_id))
+		if (parent::save($userinfo_data,$userlog_data,$user_id))
 		{
 			if (!empty($userlog_data)) {
 				
-				if (!$user_id or !$this->exists($user_id)) {
+				if ($user_id == -1 or !$this->exists($user_id)) {
 					$userlog_data['user_id'] = $user_id = $userinfo_data['user_id'];
 					$success = $this->db->insert('users',$userlog_data);
 			    }

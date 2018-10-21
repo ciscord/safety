@@ -1,5 +1,8 @@
 <?php
 $lang['common_actions']='Actions';
+$lang['common_add']='Add';
+$lang['common_edit']='Edit';
+$lang['common_admin']='Admin';
 $lang['common_common']='common';
 $lang['common_404']='Oops, 404!';
 $lang['common_404_message']='The page you requested was not found';
@@ -45,7 +48,7 @@ $lang['common_email_invalid_format']='The e-mail address is not in the proper fo
 $lang['common_det']='details';
 $lang['common_other']='Other Details';
 $lang['common_others']='Other';
-$lang['common_add_to_sales'] = 'Update';
+$lang['common_update'] = 'UPDATE';
 $lang['common_personal_phone_number'] = 'Pesonal Phone';
 $lang['common_official_phone_number'] = 'Official Phone';
 $lang['common_personal_email'] = 'Pesonal Email';

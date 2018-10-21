@@ -67,9 +67,9 @@ class Userinfo_model extends CI_Model
 	Inserts or updates a person
 	*/
 
-	public function save(&$userinfo_data, &$userinfo,&$permission_data,$user_id=false)
+	public function save(&$userinfo_data, &$userinfo,$user_id=-1)
 	{		
-		if (!$user_id or !$this->exists($user_id)) {
+		if ($user_id == -1 or !$this->exists($user_id)) {
 			if ($this->db->insert('userinfo',$userinfo_data)) {
 				$userinfo_data['user_id']=$this->db->insert_id();
 				return true;

@@ -83,9 +83,7 @@ class Profiles extends Secure_area implements iData_controller
 	public function save_profile_pic($user_id=-1)
 	{
 
-			if (isset($GLOBALS["HTTP_RAW_POST_DATA"]))
-			
-			{
+		if (isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
 			// Get the data
 			$imageData=$GLOBALS['HTTP_RAW_POST_DATA'];
 
@@ -247,9 +245,7 @@ class Profiles extends Secure_area implements iData_controller
 
 		    $userlog_data=array();
 		    $permission_data=array();
-		
-
-		
+				
 		    if ($this->Userinfo_model->save($person_data,$userlog_data,$permission_data,$user_id)) {
 		    echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_updating').' '.
 			$person_data['first_name'],'user_id'=>$user_id));

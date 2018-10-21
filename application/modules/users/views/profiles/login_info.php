@@ -103,11 +103,11 @@ $(document).ready(function() {
         wrapper: "li",
         rules: {
 			email:
-      			{
-      				required:true,
-					email:"email",
-					maxlength: 250
-      			},
+            {
+                required:true,
+                email:"email",
+                maxlength: 250
+            },
             username: {
                     required: true,
                     minlength: 5,
@@ -128,11 +128,11 @@ $(document).ready(function() {
         },
         messages: {
 			email:
-           		{
-           			required: "<?php echo $this->lang->line('profiles_email_required'); ?>",
-           			email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
-					maxlength: "<?php echo $this->lang->line('profiles_email_maxlength'); ?>"
-           		},
+            {
+                required: "<?php echo $this->lang->line('profiles_email_required'); ?>",
+                email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
+                maxlength: "<?php echo $this->lang->line('profiles_email_maxlength'); ?>"
+            },
             username: {
                     required: "<?php echo $this->lang->line('login_username_required'); ?>",
                     minlength: "<?php echo $this->lang->line('login_username_minlength'); ?>",

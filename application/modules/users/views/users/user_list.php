@@ -1,7 +1,79 @@
 <?php
    defined('BASEPATH') OR exit('No direct script access allowed');
-   ?>
+?>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <br>
+            <small><br></small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div id="title_bar">
+            <div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name); ?></div>
+        </div>
+
+        <div id="pagging">
+            <?php echo $this->pagination->create_links();?>
+        </div>
+
+        <div id="table_action_header">
+            <ul>
+                <li class="float_left"><span><?php echo anchor("$controller_path/delete",$this->lang->line("icon_delete")." ".$this->lang->line("common_delete"),array('id'=>'delete')); ?></span></li>
+                <li   class="float_right">
+                    <?php
+                    echo "<span  id='search_clear' >".anchor("$controller_path/index","Clear Search")."</span>";
+                    ?>
+                </li>
+                <li class="float_right">
+                    <?php echo form_open("$controller_path/search",array('id'=>'search_form')); ?>
+                    <label>Search: </label>
+                    <input type="text"  placeholder=" Search..." name ='search' id='search'/>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+        <div id="table_holder">
+            <?php echo $manage_table; ?>
+        </div>
+
+        <div id="new_button">
+                <?php echo anchor("$controller_path/view",
+                    "<div class='big_button float_left'><span>".$this->lang->line('profiles_new')."</span></div>",
+                    array('class'=>'','title'=>$this->lang->line($controller_name.'_new')));
+                    ?>
+        </div>
+        <div id="feedback_bar"></div>
+        </article>
+        </section>
+         <!-- end content -->
+    </div>
+  
 <script type="text/javascript">
+      $(".remove").click(function(){
+        var id = $(this).parents("tr").attr("id");
+        var url = '<?php echo site_url("$controller_path/deletebyid/")?>' + id;
+        jAlert('Are you sure to remove this user?'+url, 'Confirmation Dialog', function(r) {
+            $.ajax({
+               url: url,
+               type: 'GET',
+               data: {id: id},
+               error: function() {
+                  alert('Something is wrong');
+               },
+               success: function(data) {
+                    $("#"+id).remove();
+               }
+            });
+
+        });
+
+    });
+
    $(document).ready(function() 
    { 
        var csfrData = {};
@@ -49,71 +121,21 @@
    	}
    	else
    	{
-   	tb_remove();
-   		//This is an update, just update one row
-   		if(jQuery.inArray(response.user_id,get_visible_checkbox_ids()) != -1)
-   		{
-   		
-   			update_row(response.user_id,'<?php echo site_url("$controller_path/get_row")?>');
-			setTimeout(function(){ init_table_sorting(); }, 500);
-   			set_feedback(response.message,'success_message',false);	
-   			
-   		}
-   		else //refresh entire table
-   		{
-   				set_feedback(response.message,'success_message',false);	
-                   location.reload();				
-   		}
-   	}
-   }
+        tb_remove();
+            //This is an update, just update one row
+            if(jQuery.inArray(response.user_id,get_visible_checkbox_ids()) != -1)
+            {
+            
+                update_row(response.user_id,'<?php echo site_url("$controller_path/get_row")?>');
+                setTimeout(function(){ init_table_sorting(); }, 500);
+                set_feedback(response.message,'success_message',false);	
+                
+            }
+            else //refresh entire table
+            {
+                    set_feedback(response.message,'success_message',false);	
+                    location.reload();				
+            }
+        }
+    }
 </script>
-      <div class="content-wrapper">
-         <!-- Content Header (Page header) -->
-         <section class="content-header">
-            <h1>
-               <br>
-               <small><br></small>
-            </h1>
-         </section>
-         <!-- Main content -->
-         <section class="content">
-            <div id="title_bar">
-               <div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name); ?></div>
-            </div>
-            <div id="pagging">
-               <?php echo $this->pagination->create_links();?>
-            </div>
-            <div id="table_action_header">
-               <ul>
-                  <li class="float_left"><span><?php echo anchor("$controller_path/delete",$this->lang->line("icon_delete")." ".$this->lang->line("common_delete"),array('id'=>'delete')); ?></span></li>
-                  <li   class="float_right">
-                     <?php
-                        echo "<span  id='search_clear' >".anchor("$controller_path/index","Clear Search")."</span>";
-                        ?>
-                  </li>
-                  <li class="float_right">
-                   
- 
-                     <?php echo form_open("$controller_path/search",array('id'=>'search_form')); ?>
-                     <label>Search: </label>
-                     <input type="text"  placeholder=" Search..." name ='search' id='search'/>
-                     </form>
-                  </li>
-               </ul>
-            </div>
-            <div id="table_holder">
-               <?php echo $manage_table; ?>
-            </div>
-
-            <div id="new_button">
-                  <?php echo anchor("$controller_path/view",
-                     "<div class='big_button float_left'><span>".$this->lang->line('profiles_new')."</span></div>",
-                     array('class'=>'','title'=>$this->lang->line($controller_name.'_new')));
-                     ?>
-            </div>
-            <div id="feedback_bar"></div>
-            </article>
-         </section>
-         <!-- end content -->
-      </div>
-  

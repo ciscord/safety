@@ -137,28 +137,17 @@ class Users extends Secure_area implements iData_controller
 	*/
 	public function view($user_id=-1)
 	{
+		$data['user_id']=$user_id;
 		$data['user_info']=$this->User_model->get_info($user_id);
-		$data['all_modules']=$this->Module_model->get_editable_modules();
 		if ($user_id==-1) {//new admin user form 
 			$data['content_view']='users/users/admin_user_form';//this is for admin form
+		}else {
+		    $data['content_view']='users/users/admin_user_form';//this is for admin form
 		}
-	    else {
-		    $data['content_view']='users/users/form';
-		}
-		
-		$config['base_url'] = site_url('users/users/index');
-		$this->load->library('pagination'); 
-		$config['total_rows'] = $this->User_model->count_all();
-		$config['per_page'] = $this->config->item('pagination_limit'); //Get page limit from config settings 
-		$config['uri_segment'] = 4;
-		$this->pagination->initialize($config);
 		
 		$data['controller_name']=strtolower(get_class());
 		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();;
-		$data['form_width']=$this->get_form_width();
 		
- 
-		$data['manage_table']=get_user_manage_table( $this->User_model->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
 		$this->load->module("template");
 		$this->template->manage_user_template($data);
 
@@ -192,19 +181,17 @@ class Users extends Secure_area implements iData_controller
 				$unencodedData=base64_decode($filteredData);
 
 				if ($this->is_writable_r('./uploads/')) {
-				$fp = fopen($filePath.'.png', 'w' );
-				fwrite( $fp, $unencodedData);
-				fclose( $fp );
+					$fp = fopen($filePath.'.png', 'w' );
+					fwrite( $fp, $unencodedData);
+					fclose( $fp );
 				
-				 echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_avatar_updated')));
+				 	echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_avatar_updated')));
 				}
 				else{
 					 echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_avatar_not_writable'))); 
 				}
 			}
 		}
-		
-		
 	}
 	
 	public function is_writable_r($dir)
@@ -238,7 +225,7 @@ class Users extends Secure_area implements iData_controller
 		$this->load->view("users/users/login_info",$data);
 	}
 	public function addadmin() {
-		$this->save(-1, 1);
+		$this->save($this->input->post('user_id'), 1);
 	}
 	/*
 	Inserts/updates an user
@@ -329,11 +316,11 @@ class Users extends Secure_area implements iData_controller
 			$email =  $this->input->post('email');
 			$username = $this->input->post('username');
 			$userlog_data=array(
-			'username'=>$username,
-			'password'=>($this->bcrypt->hash_password($password))
+				'username'=>$username,
+				'password'=>($this->bcrypt->hash_password($password))
 			);
 			 $userinfo_data = array(
-		    'email'=>$this->input->post('email'),
+		    	'email'=>$this->input->post('email'),
 		    );
 			$user=$this->input->post('username');
 			$current_password=$this->input->post('current_password');

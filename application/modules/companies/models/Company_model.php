@@ -22,8 +22,7 @@ class Company_model  extends CI_Model
 	public function get_all($limit=10000, $offset=0)
 	{
 		return $this->db->query("SELECT *,COUNT(".$this->db->dbprefix."userinfo.company_id) as number_of_users FROM ".$this->db->dbprefix."companies
-		LEFT JOIN ".$this->db->dbprefix."userinfo ON ".$this->db->dbprefix."userinfo.company_id=".$this->db->dbprefix."companies.company_id
-GROUP BY ".$this->db->dbprefix."companies.company_id");
+		LEFT JOIN ".$this->db->dbprefix."userinfo ON ".$this->db->dbprefix."userinfo.company_id=".$this->db->dbprefix."companies.company_id GROUP BY " .$this->db->dbprefix."companies.company_id");
 			
 	}
 	
