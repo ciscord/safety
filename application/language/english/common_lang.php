@@ -3,6 +3,7 @@ $lang['common_actions']='Actions';
 $lang['common_add']='Add';
 $lang['common_edit']='Edit';
 $lang['common_admin']='Admin';
+$lang['common_company']='Company';
 $lang['common_common']='common';
 $lang['common_404']='Oops, 404!';
 $lang['common_404_message']='The page you requested was not found';

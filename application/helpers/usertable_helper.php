@@ -89,10 +89,7 @@ function get_company_manage_table($people,$controller)
 	$CI->lang->line('profiles_company'),
 	$CI->lang->line('profiles_contact').' '.$CI->lang->line('profiles_first_name'),
 	$CI->lang->line('profiles_contact').' '.$CI->lang->line('profiles_last_name'),
-	$CI->lang->line('profiles_address'),
-	$CI->lang->line('profiles_phone'),
 	$CI->lang->line('profiles_email'),
-	$CI->lang->line('profiles_note'),
 	$CI->lang->line('profiles_numberofuser'),
 	$CI->lang->line('profiles_status'),
 	$CI->lang->line('common_actions'),
@@ -140,11 +137,8 @@ function get_company_data_row($data_row,$controller)
 	// Apply the xss_clean() of "security" library, which filtered data from passing through <script> tag.
 	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->name)),10).'</td>';
 	$table_data_row.='<td width="15%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->firstname)),10).'</td>';
-	$table_data_row.='<td width="20%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->lastname)),22).'</td>';	
-	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->address)),10).'</td>';
-	$table_data_row.='<td width="15%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->phone_number)),10).'</td>';
-	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->email)),13).'</td>';	
-	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->note)),13).'</td>';	
+	$table_data_row.='<td width="20%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->lastname)),22).'</td>';
+	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->company_email)),13).'</td>';	
 	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->number_of_users)),13).'</td>';
 	
     if($data_row->active==0)

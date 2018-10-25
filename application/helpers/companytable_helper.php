@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /*
 Gets the html table to manage people.
 */
-function get_company_manage_table($people,$controller)
+function get_company_manage_table($companies,$controller)
 {
 	$CI =& get_instance();
 	$table='<table class="tablesorter" id="sortable_table">';
@@ -23,7 +23,7 @@ function get_company_manage_table($people,$controller)
 		$table.="<th>$header</th>";
 	}
 	$table.='</tr></thead><tbody>';
-	$table.=get_company_manage_table_data_rows($people,$controller);
+	$table.=get_company_manage_table_data_rows($companies,$controller);
 	$table.='</tbody></table>';
 	return $table;
 }
@@ -31,16 +31,16 @@ function get_company_manage_table($people,$controller)
 /*
 Gets the html data rows for the people.
 */
-function get_company_manage_table_data_rows($people,$controller)
+function get_company_manage_table_data_rows($companies,$controller)
 {
 	$CI =& get_instance();
 	$table_data_rows='';
 	
-	foreach ($people->result() as $data_row) {
+	foreach ($companies->result() as $data_row) {
 		$table_data_rows.=get_company_data_row($data_row,$controller);
 	}
 	
-	if ($people->num_rows()==0) {
+	if ($companies->num_rows()==0) {
 		$table_data_rows.="<tr><td colspan='10'><div class='warning_message' style='padding:7px;'>".$CI->lang->line('profiles_no_employee_to_display')."</div></tr></tr>";
 	}
 	
@@ -57,7 +57,7 @@ function get_company_data_row($data_row,$controller)
 	// $table_data_row.="<td width='5%'><input type='checkbox' id='user_$data_row->user_id' value='".$data_row->user_id."'/></td>";
 
 	// Apply the xss_clean() of "security" library, which filtered data from passing through <script> tag.
-	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->name)),10).'</td>';
+	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->company_id)),10).'</td>';
 	$table_data_row.='<td width="15%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->firstname)),10).'</td>';
 	$table_data_row.='<td width="20%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->lastname)),22).'</td>';
 	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->number_of_users)),13).'</td>';		
@@ -68,7 +68,7 @@ function get_company_data_row($data_row,$controller)
     else
 	$table_data_row.='<td width="10%"><span class="label label-danger">'.$CI->lang->line('profiles_deactivated').'</span></td>';	
 
-	$table_data_row.='<td width="10%">'.anchor($controller_path."/view/$data_row->company_id/width:$width", $CI->lang->line('icon_edit'),array('class'=>'thickbox','title'=>$CI->lang->line('common_edit'))).'</td>';		
+	$table_data_row.='<td width="10%">'.anchor($controller_path."/view/$data_row->company_id", $CI->lang->line('icon_user'),array('class'=>'','title'=>$CI->lang->line('common_edit'))).str_repeat('&nbsp;', 5).anchor($controller_path."/view/$data_row->company_id", $CI->lang->line('icon_location'),array('class'=>'','title'=>$CI->lang->line('common_edit'))).str_repeat('&nbsp;', 5).anchor($controller_path."/view/$data_row->company_id", $CI->lang->line('icon_edit'),array('class'=>'','title'=>$CI->lang->line('common_edit'))).'</td>';		
 	$table_data_row.='</tr>';
 	
 	return $table_data_row;

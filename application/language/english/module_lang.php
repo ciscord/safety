@@ -27,6 +27,7 @@ $lang['module_trashes_desc']='View Deleted Users';
 $lang['main_module_admins']='Admins ';
 $lang['main_module_admins_desc']='View Admin Users';
 
+$lang['module_companies']='Companies ';
 $lang['main_module_companies']='Companies ';
 $lang['main_module_companies_desc']='View Companies';
 

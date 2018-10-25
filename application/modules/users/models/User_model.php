@@ -4,6 +4,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User_model  extends Userinfo_model
 {
 	/*
+	Gets information about a particular user
+	*/
+	public function get_info($users_id)
+	{
+		$this->db->from('users');	
+		$this->db->join('userinfo', 'userinfo.user_id = users.user_id');
+		$this->db->where('users.user_id',$users_id);
+		$query = $this->db->get();
+		
+		if ($query->num_rows()==1) {
+			return $query->row();
+		}
+		else {
+			//Get empty base parent object
+			$person_obj=parent::get_info(-1);
+			//Get all the fields from user table
+			$fields = $this->db->list_fields('users');
+			//append those fields to base parent object, we we have a complete empty object
+			foreach ($fields as $field) {
+				$person_obj->$field='';
+			}
+			return $person_obj;
+		}
+	}
+	/*
 	Determines if a given user_id is exist
 	*/
 	public function exists($user_id)
@@ -253,31 +278,7 @@ class User_model  extends Userinfo_model
     }
 	}
 	
-	/*
-	Gets information about a particular user
-	*/
-	public function get_info($users_id)
-	{
-		$this->db->from('users');	
-		$this->db->join('userinfo', 'userinfo.user_id = users.user_id');
-		$this->db->where('users.user_id',$users_id);
-		$query = $this->db->get();
-		
-		if ($query->num_rows()==1) {
-			return $query->row();
-		}
-		else {
-			//Get empty base parent object
-			$person_obj=parent::get_info(-1);
-			//Get all the fields from user table
-			$fields = $this->db->list_fields('users');
-			//append those fields to base parent object, we we have a complete empty object
-			foreach ($fields as $field) {
-				$person_obj->$field='';
-			}
-			return $person_obj;
-		}
-	}
+	
 	
 	public function get_first_name($users_id)
 	{

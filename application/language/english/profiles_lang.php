@@ -8,7 +8,9 @@ $lang['profiles_my_profile']='My profile';
 $lang['profiles_first_name']='First Name';
 $lang['profiles_last_name']='Last Name';
 $lang['profiles_phone']='Phone';
+$lang['profiles_cell']='Cell';
 $lang['profiles_email']='Email';
+
 $lang['profiles_password']='Password';
 $lang['confirmpassword']='Confirm Password';
 $lang['profiles_contact']='Contact';
@@ -18,10 +20,13 @@ $lang['profiles_numberofuser']='Number of Users';
 $lang['profiles_country']='Country';
 $lang['profiles_state']='State';
 $lang['profiles_city']='City';
+$lang['profiles_zip']='Zip';
 $lang['profiles_comments']='Comments';
 $lang['profiles_marital_status']='Marital Status';
 $lang['profiles_single']='Single';
 $lang['profiles_married']='Married';
+$lang['profiles_company_name']='Company Name';
+$lang['profiles_numberof_users']='Number of Users';
 
 $lang['profiles_user_level']='User Level';
 $lang['profiles_user_level_admin']='Admin';
@@ -44,6 +49,10 @@ $lang['profiles_error_adding_updating'] = 'Error adding/updating user';
 $lang['profiles_successful_adding']='You have successfully added user';
 $lang['profiles_successful_with_email_validating']='Registration has been successfull. Please check your email to active your account';
 $lang['profiles_confirmation_email_failed']='Error in sending confirmation email';
+
+$lang['profiles_successful_adding_company']='You have successfully added Company';
+$lang['profiles_successful_updating_company']='You have successfully updated Company';
+$lang['profiles_error_adding_updating_company'] = 'Error adding/updating Company';
 
 $lang['profiles_first_name_required']='First name is a required field';
 $lang['profiles_captcha_required'] = 'Please enter the validation code';
@@ -76,6 +85,7 @@ $lang['profiles_one_or_multiple']='user(s)';
 $lang['profiles_cannot_be_deleted']='Could not deleted selected users, you are trying to delete admin or yourself :)';
 
 $lang['profiles_address']='Address';
+$lang['profiles_address2']='Address2';
 $lang['profiles_fax']='Fax';
 $lang['profiles_company_required']='Company name is a required field';
 $lang['profiles_address_required']='Company address is a required field';

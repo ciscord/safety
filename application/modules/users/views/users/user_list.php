@@ -13,7 +13,7 @@
     <!-- Main content -->
     <section class="content">
         <div id="title_bar">
-            <div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name); ?></div>
+            <div id="title" class="float_left"><?php echo $this->lang->line('module_'.$controller_name); ?></div>
         </div>
 
         <div id="pagging">
