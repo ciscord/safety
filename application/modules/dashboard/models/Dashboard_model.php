@@ -56,7 +56,7 @@ class Dashboard_model extends CI_Model
 		$this->db->from('userinfo');
 		$this->db->join('users','users.user_id=userinfo.user_id');		
 		$this->db->group_by('country_name');
-		$this->db->where('deleted',0);
+		$this->db->where('users.deleted',0);
 		$result=$this->db->get();	;
 	$country_name="";
  
@@ -80,7 +80,7 @@ class Dashboard_model extends CI_Model
 		$this->db->from('userinfo');
 		$this->db->join('users','users.user_id=userinfo.user_id');		
 		$this->db->where("(	register_date LIKE '%".$this->db->escape_like_str($dates)."%'
-	    ) and deleted=0");
+	    ) and users.deleted=0");
 		$result=$this->db->get();	 
 
 	    foreach ($result->result() as $row) {

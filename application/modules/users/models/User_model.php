@@ -526,7 +526,7 @@ class User_model  extends Userinfo_model
 
 		$this->db->join('userinfo', 'userinfo.user_id = users.user_id');
 		$this->db->where('active',0);
-	    $this->db->where('deleted',0);
+	    $this->db->where('users.deleted',0);
 		$this->db->group_start();
 	    $this->db->where('username',$username);
 	    $this->db->or_where('email',$username);
