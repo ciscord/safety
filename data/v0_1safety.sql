@@ -2,21 +2,13 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Oct 11, 2018 at 07:55 AM
--- Server version: 5.5.60-MariaDB
--- PHP Version: 7.1.14
+-- Host: localhost:8889
+-- Generation Time: Oct 29, 2018 at 01:55 PM
+-- Server version: 5.7.23
+-- PHP Version: 7.1.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `safety`
@@ -97,6 +89,30 @@ CREATE TABLE `unf_ci_sessions` (
   `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `data` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unf_companies`
+--
+
+CREATE TABLE `unf_companies` (
+  `company_id` int(11) NOT NULL,
+  `deleted` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `company_phone_number` varchar(50) NOT NULL,
+  `company_cell` varchar(50) NOT NULL,
+  `company_email` varchar(50) NOT NULL,
+  `company_address` varchar(250) NOT NULL,
+  `company_address2` varchar(250) NOT NULL,
+  `company_city` varchar(50) NOT NULL,
+  `company_state` varchar(50) NOT NULL,
+  `company_zip` varchar(50) NOT NULL,
+  `comments` text NOT NULL,
+  `company_active` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -384,6 +400,27 @@ CREATE TABLE `unf_email_log` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `unf_locations`
+--
+
+CREATE TABLE `unf_locations` (
+  `location_id` int(11) NOT NULL,
+  `location_company_id` int(11) NOT NULL,
+  `location_name` varchar(255) NOT NULL,
+  `location_address` varchar(255) NOT NULL,
+  `location_address2` varchar(255) NOT NULL,
+  `latitude` float NOT NULL,
+  `longitude` float NOT NULL,
+  `location_active` int(11) NOT NULL,
+  `location_delete` int(11) NOT NULL,
+  `location_city` varchar(255) NOT NULL,
+  `location_state` varchar(255) NOT NULL,
+  `location_zip` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `unf_main_modules`
 --
 
@@ -450,6 +487,9 @@ INSERT INTO `unf_permissions` (`module_id`, `user_id`) VALUES
 ('config', 1),
 ('dashboards', 1),
 ('profiles', 1),
+('trashes', 1),
+('users', 1),
+('user_reports', 1),
 ('profiles', 113),
 ('profiles', 117),
 ('profiles', 119),
@@ -458,9 +498,7 @@ INSERT INTO `unf_permissions` (`module_id`, `user_id`) VALUES
 ('profiles', 122),
 ('profiles', 123),
 ('profiles', 125),
-('trashes', 1),
-('users', 1),
-('user_reports', 1);
+('profiles', 141);
 
 -- --------------------------------------------------------
 
@@ -530,7 +568,12 @@ INSERT INTO `unf_statistics` (`id`, `user_id`, `username`, `user_level`, `sectio
 (44, NULL, NULL, NULL, '', 'index', '2018-10-08 19:06:26', 'phpmyadmin'),
 (45, NULL, NULL, NULL, '', 'index', '2018-10-08 19:06:26', 'favicon.png'),
 (46, NULL, NULL, NULL, 'Login', 'index', '2018-10-11 02:37:35', ''),
-(47, NULL, NULL, NULL, 'Login', 'index', '2018-10-11 02:37:36', '');
+(47, NULL, NULL, NULL, 'Login', 'index', '2018-10-11 02:37:36', ''),
+(48, NULL, NULL, NULL, 'login', 'index', '2018-10-25 19:57:26', 'login'),
+(49, NULL, NULL, NULL, '', 'index', '2018-10-25 19:57:26', 'favicon.png'),
+(50, NULL, NULL, NULL, 'login', 'user_register', '2018-10-25 19:57:30', 'login/user_register'),
+(51, NULL, NULL, NULL, '', 'index', '2018-10-25 19:57:31', 'favicon.png'),
+(52, NULL, NULL, NULL, 'login', 'save_user', '2018-10-25 19:58:42', 'login/save_user/-1');
 
 -- --------------------------------------------------------
 
@@ -556,15 +599,19 @@ CREATE TABLE `unf_userinfo` (
   `user_id` int(10) NOT NULL,
   `social_provider` varchar(260) DEFAULT NULL,
   `social_identifier` varchar(260) DEFAULT NULL,
-  `social_profileURL` text
+  `social_profileURL` text,
+  `user_company_id` int(11) NOT NULL DEFAULT '-1',
+  `employee` varchar(250) NOT NULL,
+  `pin` varchar(250) NOT NULL,
+  `deleted` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `unf_userinfo`
 --
 
-INSERT INTO `unf_userinfo` (`first_name`, `last_name`, `profile_image`, `register_date`, `dob`, `marital_status`, `phone_number`, `email`, `address`, `city`, `state`, `country_code`, `country_name`, `comments`, `user_id`, `social_provider`, `social_identifier`, `social_profileURL`) VALUES
-('Unifeyed', 'Support', '1.png', '2017-05-04', '1955-12-25', 'Single', '14849472800', 'development@unifeyed.com', '1450 E Boot', 'West Chester', 'PA', '19380', '236', 'New No comments', 1, '', '', '');
+INSERT INTO `unf_userinfo` (`first_name`, `last_name`, `profile_image`, `register_date`, `dob`, `marital_status`, `phone_number`, `email`, `address`, `city`, `state`, `country_code`, `country_name`, `comments`, `user_id`, `social_provider`, `social_identifier`, `social_profileURL`, `user_company_id`, `employee`, `pin`, `deleted`) VALUES
+('Unifeyed', 'Support', '1.png', '2017-05-04', '1955-12-25', 'Single', '14849472800', 'development@unifeyed.com', '1450 E Boot', 'West Chester', 'PA', '19380', '236', 'New No comments', 1, '', '', '', 0, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -588,7 +635,7 @@ CREATE TABLE `unf_users` (
 --
 
 INSERT INTO `unf_users` (`username`, `password`, `email_verification_code`, `forgot_password`, `user_id`, `deleted`, `active`, `user_level`) VALUES
-('unifeyed', '$2a$08$WiJDUmv51Rz4MUA3Ts3bLu.Equ2eyDdgYCHMkOFHQFzmKX4Bol4U.', '', 0, 1, 0, 0, 1);
+('unifeyed', '$2a$08$m7iJI4mxDS6k/yzwSKXoQeQoS1zpK8eUJ/6pg2.fBIzrl3qzyZL1m', '', 0, 1, 0, 0, 1);
 
 --
 -- Indexes for dumped tables
@@ -613,6 +660,12 @@ ALTER TABLE `unf_ci_sessions`
   ADD KEY `ci_sessions_timestamp` (`timestamp`);
 
 --
+-- Indexes for table `unf_companies`
+--
+ALTER TABLE `unf_companies`
+  ADD PRIMARY KEY (`company_id`);
+
+--
 -- Indexes for table `unf_country_list`
 --
 ALTER TABLE `unf_country_list`
@@ -623,6 +676,12 @@ ALTER TABLE `unf_country_list`
 --
 ALTER TABLE `unf_email_log`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `unf_locations`
+--
+ALTER TABLE `unf_locations`
+  ADD PRIMARY KEY (`location_id`);
 
 --
 -- Indexes for table `unf_main_modules`
@@ -676,6 +735,12 @@ ALTER TABLE `unf_cicookies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `unf_companies`
+--
+ALTER TABLE `unf_companies`
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `unf_country_list`
 --
 ALTER TABLE `unf_country_list`
@@ -688,6 +753,12 @@ ALTER TABLE `unf_email_log`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `unf_locations`
+--
+ALTER TABLE `unf_locations`
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `unf_main_modules`
 --
 ALTER TABLE `unf_main_modules`
@@ -697,13 +768,13 @@ ALTER TABLE `unf_main_modules`
 -- AUTO_INCREMENT for table `unf_statistics`
 --
 ALTER TABLE `unf_statistics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `unf_userinfo`
 --
 ALTER TABLE `unf_userinfo`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
 
 --
 -- Constraints for dumped tables
@@ -721,8 +792,3 @@ ALTER TABLE `unf_modules`
 --
 ALTER TABLE `unf_users`
   ADD CONSTRAINT `unf_users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `unf_userinfo` (`user_id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
