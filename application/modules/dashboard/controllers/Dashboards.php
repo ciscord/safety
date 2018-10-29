@@ -9,6 +9,7 @@ class Dashboards extends Secure_area
 		parent::__construct("dashboards");	
 		$this->load->helper('report');	
 		$this->load->helper('usertable');	
+		
 	}
 	
 	public function index()
@@ -33,7 +34,7 @@ class Dashboards extends Secure_area
 		$data['total_reg_for_month']=$this->Dashboard_model->totalRegForMonth($dates);
 		$data['controller_name']=strtolower(get_class());
 		$data['manage_table']=get_user_manage_table( $this->User_model->get_all_admin( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
-		$data['manage_company_table']=get_company_manage_table( $this->Company_model->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
+		$data['manage_company_table']=get_dashboard_company_manage_table( $this->Company_model->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
 		
 		$data['content_view']='dashboard/dashboard';
 		$this->load->module("template");

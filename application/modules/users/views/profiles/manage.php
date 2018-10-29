@@ -5,11 +5,21 @@
       <div class="content-wrapper">
          <!-- Content Header (Page header) -->
          <section class="content-header">
-            <h1>
-               <br>
-               <small><br></small>
-            </h1>
-         </section>
+        <div id="page_title">
+            <?php  echo $this->lang->line("common_admin");
+            echo str_repeat('&nbsp;', 3);
+            $title = ($user_id == -1) ? $this->lang->line("common_add") : $this->lang->line("common_edit");
+
+            echo $title;?> 
+        </div>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-tachometer-alt"></i> Home</a></li>
+            <li class="active">Admin</li>
+            <li class="active"> <?php 
+                echo $title;
+            ?></li>
+        </ol>
+    </section>
          <!-- Main content -->
          <section class="content">
             <!--     custom  content   -->																						

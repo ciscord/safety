@@ -686,7 +686,7 @@ table.tablesorter .disabled_row td {
 {
 	position:relative;
 	width:100%;
-	background-color:#EEEEEE;
+	background-color:#fff;
 	background-image:url(../images/checkbox_arrow.gif);
 	height:20px;
 	border-top:1px solid #CCCCCC;	

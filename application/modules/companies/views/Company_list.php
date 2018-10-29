@@ -5,16 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div id="page_title">
-            <?php  echo $this->lang->line("common_user");
-            $title = $this->lang->line("common_user");
-            echo 's';?> 
+            <?php  echo $this->lang->line("common_companies");?> 
         </div>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-tachometer-alt"></i> Home</a></li>
-            <li class="active">Admin</li>
-            <li class="active"> <?php 
-                echo $title;
-            ?></li>
+            <li class="active"><?php  echo $this->lang->line("common_companies");?></li>
+          
         </ol>
     </section>
 

@@ -5,16 +5,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div id="page_title">
-            <?php  echo $this->lang->line("common_user");
-            $title = $this->lang->line("common_user");
-            echo 's';?> 
+            <?php  echo $this->lang->line("common_locations");?> 
         </div>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-tachometer-alt"></i> Home</a></li>
-            <li class="active">Admin</li>
-            <li class="active"> <?php 
-                echo $title;
-            ?></li>
+            <li><a href="#"><i class="fa fa-tachometer-alt"></i> <?php  echo $this->lang->line("common_home");?> </a></li>
+            <li class="active"><?php  echo $this->lang->line("common_companies");?></li>
+            <li class="active"> <?php  echo $this->lang->line("common_locations");?> </li>
         </ol>
     </section>
 
@@ -47,7 +43,7 @@
         </div>
 
         <div id="new_button">
-                <?php echo anchor("$controller_path/view",
+                <?php echo anchor("$controller_path/locationview/$company_id",
                     "<div class='big_button float_left'><span>".$this->lang->line('profiles_new')."</span></div>",
                     array('class'=>'','title'=>$this->lang->line($controller_name.'_new')));
                     ?>

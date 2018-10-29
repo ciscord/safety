@@ -55,6 +55,8 @@ class User_model  extends Userinfo_model
 		return $this->db->get();
 		
 	}
+	
+
 	public function get_all_admin($limit=10000, $offset=0)
 	{
 		$this->db->from('users');
@@ -421,6 +423,12 @@ class User_model  extends Userinfo_model
 			
 			$this->db->where('user_id', $users_id);
 			$success = $this->db->update('users', array('deleted' => 1));
+
+			$this->db->where('user_id', $users_id);
+			$success = $this->db->update('userinfo', array('deleted' => 1));
+
+			$this->db->where('user_id', $users_id);
+			$success = $this->db->update('userinfo', array('user_company_id' => -1));
 		}
 		$this->db->trans_complete();		
 		return $success;

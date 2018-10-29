@@ -10,7 +10,8 @@ $lang['profiles_last_name']='Last Name';
 $lang['profiles_phone']='Phone';
 $lang['profiles_cell']='Cell';
 $lang['profiles_email']='Email';
-
+$lang['profiles_level']='Level';
+$lang['profiles_user_level']='User Level';
 $lang['profiles_password']='Password';
 $lang['confirmpassword']='Confirm Password';
 $lang['profiles_contact']='Contact';
@@ -27,6 +28,7 @@ $lang['profiles_single']='Single';
 $lang['profiles_married']='Married';
 $lang['profiles_company_name']='Company Name';
 $lang['profiles_numberof_users']='Number of Users';
+$lang['profile_assign_location']='Assign Locations';
 
 $lang['profiles_user_level']='User Level';
 $lang['profiles_user_level_admin']='Admin';

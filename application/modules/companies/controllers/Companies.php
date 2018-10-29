@@ -9,6 +9,7 @@ class Companies extends Secure_area implements iData_controller
 	{
 		parent::__construct();
 		$this->load->helper('companytable');
+		$this->load->helper('usertable');
 	}
 	
 	public function index()
@@ -23,16 +24,16 @@ class Companies extends Secure_area implements iData_controller
 		$data['controller_name']=strtolower(get_class());
 		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();;
 		$data['form_width']=$this->get_form_width();
-		$data['content_view']='users/users/user_list';
+		$data['content_view']='companies/company_list';
  
-		$data['manage_table']=get_company_manage_table( $this->Company_model->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
+		$data['manage_table']=get_company_manage_table( $this->Company_model->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ) );
 		$this->load->module("template");
 		$this->template->manage_tables_template($data);
  
 	}
 	
 	/*
-	Loads the user edit form
+	Loads the company edit form
 	*/
 	public function view($company_id=-1)
 	{
@@ -44,9 +45,94 @@ class Companies extends Secure_area implements iData_controller
 		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();;
 		
 		$this->load->module("template");
-		$this->template->manage_user_template($data);//this can be used for company also
+		$this->template->manage_tables_template($data);//this can be used for company also
 
 	}
+
+	/*
+	Loads the user edit form
+	*/
+	public function users($company_id=-1)
+	{
+		$config['base_url'] = site_url('companies/users/index');
+		$this->load->library('pagination'); 
+		$config['total_rows'] = $this->Company_model->count_all();
+		$config['per_page'] = $this->config->item('pagination_limit'); //Get page limit from config settings 
+		$config['uri_segment'] = 5;
+		$this->pagination->initialize($config);
+		
+		$data['controller_name']=strtolower(get_class());
+		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();;
+		$data['form_width']=$this->get_form_width();
+		$data['content_view']='companies/user_list';
+		
+		$data['manage_table']=get_company_user_manage_table( $this->Company_model->get_companyusers( $config['per_page'], $this->uri->segment( $config['uri_segment'] ), $company_id ) );
+		
+		$this->load->module("template");
+		$this->template->manage_tables_template($data);
+
+	}
+
+	public function userview($user_id=-1)
+	{
+		$data['user_id']=$user_id;
+		$data['user_info']=$this->User_model->get_info($user_id);
+		$data['companies']=$this->Company_model->get_all();
+		if ($user_id==-1) {//new admin user form 
+			$data['content_view']='companies/company_user_form';//this is for admin form
+		}else {
+		    $data['content_view']='companies/company_user_form';//this is for admin form
+		}
+		
+		$data['controller_name']=strtolower(get_class());
+		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();;
+		
+		$this->load->module("template");
+		$this->template->manage_user_template($data);
+
+	}
+
+	/*
+	Loads the location edit form
+	*/
+	public function locations($company_id=-1)
+	{
+		$config['base_url'] = site_url('companies/users/index');
+		$this->load->library('pagination'); 
+		$config['total_rows'] = $this->Company_model->count_all();
+		$config['per_page'] = $this->config->item('pagination_limit'); //Get page limit from config settings 
+		$config['uri_segment'] = 5;
+		$this->pagination->initialize($config);
+		$data['company_id']=$company_id;
+		$data['controller_name']=strtolower(get_class());
+		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();;
+		$data['form_width']=$this->get_form_width();
+		$data['content_view']='companies/location_list';
+		
+		$data['manage_table']=get_company_location_manage_table( $this->Company_model->get_companylocation( $config['per_page'], $this->uri->segment( $config['uri_segment'] ), $company_id ) );
+		
+		$this->load->module("template");
+		$this->template->manage_tables_template($data);
+
+	}
+
+	public function locationview($company_id=-1, $location_id=-1)
+	{
+		$data['location_id']=$location_id;
+		$data['location_info']= $this->Company_model->get_location_info($location_id);
+		$data['companies']=$this->Company_model->get_all();
+		$data['companyusers']=$this->Company_model->get_companyusers(-1, 0, $company_id);
+		$data['content_view']='companies/company_location_form';//this is for admin form
+		
+		$data['controller_name']=strtolower(get_class());
+		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();;
+		
+		$this->load->module("template");
+		$this->template->manage_user_template($data);
+
+	}
+
+
 	// /*
 	// Inserts/updates an user
 	// */
@@ -104,7 +190,18 @@ class Companies extends Secure_area implements iData_controller
 		
 		}
 	}
-	
+	/*
+	This deletes company user by id from the users table
+	*/
+	public function deletebyid($user_id=-1)
+	{
+		if ($this->User_model->delete($user_id)) {
+			echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_deleted')));
+		}
+		else {
+			echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_cannot_be_deleted')));
+		}
+	}
 	// /*
 	// This deletes users from the users table
 	// */

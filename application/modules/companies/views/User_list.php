@@ -5,56 +5,51 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div id="page_title">
-            <?php  echo $this->lang->line("common_user");
-            $title = $this->lang->line("common_user");
-            echo 's';?> 
+            <?php  echo $this->lang->line("common_users");?> 
         </div>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-tachometer-alt"></i> Home</a></li>
-            <li class="active">Admin</li>
-            <li class="active"> <?php 
-                echo $title;
-            ?></li>
+            <li><a href="#"><i class="fa fa-tachometer-alt"></i> <?php  echo $this->lang->line("common_home");?> </a></li>
+            <li class="active"><?php  echo $this->lang->line("common_companies");?></li>
+            <li class="active"> <?php  echo $this->lang->line("common_users");?> </li>
         </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-    <div class="box box-info profile_form">
-        <div id="pagging">
-            <?php echo $this->pagination->create_links();?>
-        </div>
+        <div class="box box-info profile_form">
+            <div id="pagging">
+                <?php echo $this->pagination->create_links();?>
+            </div>
 
-        <div id="table_action_header">
-            <ul>
-                
-                <li   class="float_right">
-                    <?php
-                    echo "<span  id='search_clear' >".anchor("$controller_path/index","Clear Search")."</span>";
-                    ?>
-                </li>
-                <li class="float_right">
-                    <?php echo form_open("$controller_path/search",array('id'=>'search_form')); ?>
-                    <label>Search: </label>
-                    <input type="text"  placeholder=" Search..." name ='search' id='search'/>
-                    </form>
-                </li>
-            </ul>
-        </div>
+            <div id="table_action_header">
+                <ul>
+                    
+                    <li   class="float_right">
+                        <?php
+                        echo "<span  id='search_clear' >".anchor("$controller_path/index","Clear Search")."</span>";
+                        ?>
+                    </li>
+                    <li class="float_right">
+                        <?php echo form_open("$controller_path/search",array('id'=>'search_form')); ?>
+                        <label>Search: </label>
+                        <input type="text"  placeholder=" Search..." name ='search' id='search'/>
+                        </form>
+                    </li>
+                </ul>
+            </div>
 
-        <div id="table_holder">
-            <?php echo $manage_table; ?>
-        </div>
+            <div id="table_holder">
+                <?php echo $manage_table; ?>
+            </div>
 
-        <div id="new_button">
-                <?php echo anchor("$controller_path/view",
-                    "<div class='big_button float_left'><span>".$this->lang->line('profiles_new')."</span></div>",
-                    array('class'=>'','title'=>$this->lang->line($controller_name.'_new')));
-                    ?>
+            <div id="new_button">
+                    <?php echo anchor("$controller_path/userview",
+                        "<div class='big_button float_left'><span>".$this->lang->line('profiles_new')."</span></div>",
+                        array('class'=>'','title'=>$this->lang->line($controller_name.'_new')));
+                        ?>
+            </div>
+            
         </div>
-        <div id="feedback_bar"></div>
-    </div>
-
     </section>
         <!-- end content -->
 </div>

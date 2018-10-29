@@ -3,15 +3,15 @@
         <!-- Content Header (Page header) -->
     <section class="content-header">
         <div id="page_title">
-            <?php  echo $this->lang->line("common_admin");
+            <?php  echo $this->lang->line("common_user");
             echo str_repeat('&nbsp;', 3);
             $title = ($user_id == -1) ? $this->lang->line("common_add") : $this->lang->line("common_edit");
 
             echo $title;?> 
         </div>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-tachometer-alt"></i> Home</a></li>
-            <li class="active">Admin</li>
+            <li><a href="#"><i class="fa fa-tachometer-alt"></i> <?php  echo $this->lang->line("common_home");?></a></li>
+            <li class="active"><?php  echo $this->lang->line("common_company");?></li>
             <li class="active"> <?php 
                 echo $title;
             ?></li>
@@ -25,36 +25,9 @@
         echo form_open('users/users/addadmin' ,array('id'=>'add_user_form'));
     ?>
      <input type="hidden" id="user_id" name="user_id" value=<?php echo $user_id?>>
-     <input type="hidden" id="userlevel" name="userlevel" value="1">
 
     <div class="row">
-        <div class="col-lg-6 col-sm-6">                
-            <div class='form-group'>
-            <?php echo form_label($this->lang->line('profiles_employee').'#*', 'employee',array('class'=>'wide')); ?>
-                <?php echo form_input(array(
-                    'name'=>'employee',
-                    'class' => 'form-control',
-                    'id'=>'employee',
-                    'value'=>$user_info->employee));?>
-            </div>
-            
-        </div>
-
-        <div class="col-lg-6 col-sm-6">                
-            <div class='form-group'>
-            <?php echo form_label($this->lang->line('profiles_pin').'#*', 'pin',array('class'=>'wide')); ?>
-                <?php echo form_input(array(
-                    'name'=>'pin',
-                    'class' => 'form-control',
-                    'id'=>'pin',
-                    'value'=>$user_info->pin));?>
-            </div>
-            
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-6 col-sm-6">                
+        <div class="col-lg-4 col-sm-4">                
             <div class='form-group'>
             <?php echo form_label($this->lang->line('profiles_first_name').'*', 'first_name',array('class'=>'wide')); ?>
                 <?php echo form_input(array(
@@ -66,7 +39,7 @@
             
         </div>
 
-        <div class="col-lg-6 col-sm-6">                
+        <div class="col-lg-4 col-sm-4">                
             <div class='form-group'>
             <?php echo form_label($this->lang->line('profiles_last_name').'*', 'last_name',array('class'=>'wide')); ?>
                 <?php echo form_input(array(
@@ -77,10 +50,29 @@
             </div>
             
         </div>
+
+        <div class="col-lg-4 col-sm-4">                
+            <div class='form-group'>
+            <?php echo form_label($this->lang->line('common_company').'*', 'company',array('class'=>'wide')); ?>
+                <?php 
+                $options = array();
+
+                foreach ($companies->result() as $data_row) {
+                    $options[$data_row->company_id]  = $data_row->name ;
+                }
+                
+                $js = 'id="shirts" class="form-control" ';
+
+                echo form_dropdown('company', $options, $user_info->user_company_id, $js);
+                ?>
+            </div>
+            
+        </div>
+
     </div>
 
     <div class="row">
-        <div class="col-lg-6 col-sm-6">                
+        <div class="col-lg-4 col-sm-4">                
             <div class='form-group'>
             <?php echo form_label($this->lang->line('profiles_phone').'*', 'phone_number',array('class'=>'wide')); ?>
                 <?php echo form_input(array(
@@ -92,7 +84,7 @@
             
         </div>
 
-        <div class="col-lg-6 col-sm-6">                
+        <div class="col-lg-4 col-sm-4">                
             <div class='form-group'>
             <?php echo form_label($this->lang->line('profiles_email').'*', 'email',array('class'=>'wide')); ?>
                 <?php echo form_input(array(
@@ -103,10 +95,27 @@
             </div>
             
         </div>
+
+        <div class="col-lg-4 col-sm-4">                
+            <div class='form-group'>
+            <?php echo form_label($this->lang->line('profiles_user_level').'*', 'userlevel',array('class'=>'wide')); ?>
+                <?php 
+                $options = array();
+                $options['2'] = "Owner";
+                $options['3'] = "Manager";
+                $options['4'] = "Technician/Engineer";
+
+                $js = 'id="userlevel" class="form-control" ';
+
+                echo form_dropdown('userlevel', $options, $user_info->user_level, $js);
+                ?>
+            </div>
+            
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-lg-6 col-sm-6">                
+        <div class="col-lg-4 col-sm-4">                
             <div class='form-group'>
             <?php echo form_label($this->lang->line('login_password').'*', 'password',array('class'=>'wide')); ?>
                 <?php echo form_password(array(
@@ -118,7 +127,7 @@
             
         </div>
 
-        <div class="col-lg-6 col-sm-6">                
+        <div class="col-lg-4 col-sm-4">                
             <div class='form-group'>
             <?php echo form_label($this->lang->line('confirmpassword').'*', 'repeat_password',array('class'=>'wide')); ?>
                 <?php echo form_password(array(
@@ -126,6 +135,18 @@
                     'class' => 'form-control',
                     'id'=>'repeat_password'
                 ));?>
+            </div>
+            
+        </div>
+
+        <div class="col-lg-4 col-sm-4">                
+            <div class='form-group'>
+            <?php echo form_label($this->lang->line('profile_assign_location').'*', 'assign_location',array('class'=>'wide')); ?>
+            <?php echo form_input(array(
+                    'name'=>'assign_location',
+                    'class' => 'form-control',
+                    'id'=>'assign_location',
+                    'value'=>$user_info->address));?>
             </div>
             
         </div>

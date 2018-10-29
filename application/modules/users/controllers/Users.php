@@ -25,7 +25,7 @@ class Users extends Secure_area implements iData_controller
 		$data['form_width']=$this->get_form_width();
 		$data['content_view']='users/users/user_list';
  
-		$data['manage_table']=get_user_manage_table( $this->User_model->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
+		$data['manage_table']=get_user_manage_table( $this->User_model->get_all_admin( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
 		$this->load->module("template");
 		$this->template->manage_tables_template($data);
  
@@ -225,7 +225,9 @@ class Users extends Secure_area implements iData_controller
 		$this->load->view("users/users/login_info",$data);
 	}
 	public function addadmin() {
-		$this->save($this->input->post('user_id'), 1);
+		
+		$this->save($this->input->post('user_id'), $this->input->post('userlevel'));
+		
 	}
 	/*
 	Inserts/updates an user
@@ -249,12 +251,28 @@ class Users extends Secure_area implements iData_controller
 		    $error_message="<ul><li>".form_error('first_name')."</li><li>".form_error('last_name')."</li><li>".form_error('phone_number')."</li><li>".form_error('password')."</li><li>".form_error('email')."</li></ul>";
 		    echo json_encode(array('success'=>false,'message'=>$error_message));
         }else {
+			$user_company_id = -1;
+			if ($this->input->post('company') !== null) {
+				$user_company_id = $this->input->post('company') ;
+			}
+
+			$employee = '';
+			if ($this->input->post('employee') !== null) {
+				$employee = $this->input->post('employee') ;
+			}
+
+			$pin = '';
+			if ($this->input->post('pin') !== null) {
+				$pin = $this->input->post('pin') ;
+			}
+
 		    $userinfo_data = array(
 				'first_name'=>$this->input->post('first_name'),
 				'last_name'=>$this->input->post('last_name'),
 				'phone_number'=>$this->input->post('phone_number'),
-				'employee'=>$this->input->post('employee'),
-				'pin'=>$this->input->post('pin'),
+				'employee'=>$employee,
+				'pin'=>$pin,
+				'user_company_id'=>$user_company_id,
 		  
 		    );
 			if($user_id == -1){
@@ -269,7 +287,13 @@ class Users extends Secure_area implements iData_controller
 				'active'=>'0',
 				'user_level'=>$user_level
 			    );
-		    }
+		    }else {
+				$userlog_data=array(
+					'username'=>$this->input->post('email'),
+					'active'=>'0',
+					'user_level'=>$user_level
+					);
+			}
 					
 			if($user_id ==-1 && $usermailcount != 0){//new user but email exist on database
 				echo json_encode(array('success'=>false,'message'=>$this->lang->line('profiles_email_exist')));
@@ -283,7 +307,7 @@ class Users extends Secure_area implements iData_controller
 					}
 					else {  //previous user
 						echo json_encode(array('success'=>true,'message'=>$this->lang->line('profiles_successful_updating').' '.
-						html_escape($this->security->xss_clean($userinfo_data['first_name'])),'user_id'=>$user_id));
+						html_escape($this->security->xss_clean($userinfo_data['first_name'])).' '.$user_level));
 					}
 		        }
 		        else {	 //failure

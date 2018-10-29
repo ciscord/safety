@@ -21,7 +21,7 @@ a{color:#000;}
 #table_action_header {
     position: relative;
     width: 100%;
-    background-color: #EEEEEE;
+    background-color: #fff;
     background-image: url(../images/checkbox_arrow.gif);
     height: 40px;
     border-top: 1px solid #CCCCCC;
@@ -74,3 +74,13 @@ table.tablesorter thead tr th, table.tablesorter tfoot tr th {
     color: #fff;
 }
 
+.main-header>.navbar {
+    -webkit-transition: margin-left .3s ease-in-out;
+    -o-transition: margin-left .3s ease-in-out;
+    transition: margin-left .3s ease-in-out;
+    margin-bottom: 0;
+    margin-left: 0px;
+    border: none;
+    min-height: 50px;
+    border-radius: 0;
+}

@@ -49,12 +49,21 @@ function init_table_sorting()
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
-           <br>
-            <small><br></small>
-          </h1>
-   
-        </section>
+        <div id="page_title">
+            <?php  echo $this->lang->line("common_admin");
+            echo str_repeat('&nbsp;', 3);
+            $title = ($user_id == -1) ? $this->lang->line("common_add") : $this->lang->line("common_edit");
+
+            echo $title;?> 
+        </div>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-tachometer-alt"></i> Home</a></li>
+            <li class="active">Admin</li>
+            <li class="active"> <?php 
+                echo $title;
+            ?></li>
+        </ol>
+    </section>
 
         <!-- Main content -->
         <section class="content">
@@ -68,13 +77,11 @@ function init_table_sorting()
 </div>
 <div id="table_action_header">
 	<ul>
-		<li class="float_left"><span><?php echo anchor("$controller_path/delete",$this->lang->line("icon_delete")." ".$this->lang->line("common_delete_permanently"),array('id'=>'delete')); ?></span></li>
-		<li class="float_left"><span><?php echo anchor("$controller_path/undo_delete",$this->lang->line("icon_undo")." ".$this->lang->line("common_undo_delete"),array('id'=>'undo_delete')); ?></span></li>
 		<li  class="float_right">
-	<?php
-	echo "<span  id='search_clear'  >".anchor("$controller_path/index","Clear Search")."</span>";
-	?>
-	</li>
+			<?php
+			echo "<span  id='search_clear'  >".anchor("$controller_path/index","Clear Search")."</span>";
+			?>
+		</li>
 		<li class="float_right">
 		<?php echo form_open("$controller_path/search",array('id'=>'search_form')); ?>
 		<input type="text"  placeholder="Search..." name ='search' id='search'/>

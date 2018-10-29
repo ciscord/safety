@@ -27,10 +27,96 @@ class Company_model  extends CI_Model
 	*/
 	public function get_all($limit=10000, $offset=0)
 	{
-		$sql = "SELECT unf_companies.*,COUNT(".$this->db->dbprefix."userinfo.user_company_id) as number_of_users FROM ".$this->db->dbprefix."companies
-		LEFT JOIN ".$this->db->dbprefix."userinfo ON ".$this->db->dbprefix."userinfo.user_company_id=".$this->db->dbprefix."companies.company_id GROUP BY " .$this->db->dbprefix."companies.company_id";
+		$sql = "SELECT A.*,COUNT(B.user_company_id) as number_of_users FROM ".$this->db->dbprefix."companies as A 
+		LEFT JOIN ".$this->db->dbprefix."userinfo as B ON B.user_company_id=A.company_id GROUP BY A.company_id";
 		return $this->db->query($sql);
 			
+	}
+
+	public function get_all_admin($limit=10000, $offset=0)
+	{
+		$this->db->from('users');
+		$this->db->where('users.deleted',0);
+		$this->db->where('users.user_level',1);		
+		$this->db->join('userinfo','users.user_id=userinfo.user_id');			
+		$this->db->order_by("first_name", "asc");
+		$this->db->limit($limit);
+		$this->db->offset($offset);
+		return $this->db->get();
+		
+	}
+	
+	public function count_all_companyusers()
+	{
+		$this->db->from('users');
+		$this->db->where('deleted',0);
+		return $this->db->count_all_results();
+	}
+	
+	/*
+	Returns all the users
+	*/
+	public function get_companyusers($limit=10000, $offset=0, $company_id)
+	{
+		$this->db->from('users');
+		$this->db->join('userinfo','users.user_id=userinfo.user_id');
+		$this->db->where('users.deleted',0);
+		$this->db->where('userinfo.user_company_id',$company_id);		
+			
+		$this->db->join('companies','companies.company_id=userinfo.user_company_id');			
+		$this->db->order_by("first_name", "asc");
+		if ($limit != -1) {
+			$this->db->limit($limit);
+			$this->db->offset($offset);
+		}
+		
+		
+		return $this->db->get();
+	}
+
+	/*
+	Returns all the users
+	*/
+	public function get_companylocation($limit=10000, $offset=0, $company_id)
+	{
+		$this->db->from('locations');
+		$this->db->where('locations.location_delete',0);
+		$this->db->where('locations.location_company_id',$company_id);		
+			
+		$this->db->join('companies','companies.company_id=locations.location_company_id');			
+		$this->db->order_by("location_name", "asc");
+		$this->db->limit($limit);
+		$this->db->offset($offset);
+		return $this->db->get();
+	}
+
+	/*
+	Returns location by location id
+	*/
+	public function get_location_info($location_id)
+	{
+		$this->db->from('locations');
+		$this->db->where('locations.location_delete',0);
+		$this->db->where('locations.location_id',$location_id);		
+			
+		$this->db->join('companies','companies.company_id=locations.location_company_id');			
+	
+		$query = $this->db->get();
+
+		if ($query->num_rows()==1) {
+			return $query->row();
+		}
+		else {
+			//create object with empty properties.
+			$fields = $this->db->list_fields('locations');
+			$location_obj = new stdClass;
+			
+			foreach ($fields as $field) {
+				$location_obj->$field='';
+			}
+			return $location_obj;
+		}
+
 	}
 
 	/*
@@ -38,8 +124,8 @@ class Company_model  extends CI_Model
 	*/
 	public function get_info($company_id)
 	{
-		$sql = "SELECT *,COUNT(".$this->db->dbprefix."userinfo.user_company_id) as number_of_users FROM ".$this->db->dbprefix."companies
-		LEFT JOIN ".$this->db->dbprefix."userinfo ON ".$this->db->dbprefix."userinfo.user_company_id=".$this->db->dbprefix."companies.company_id where unf_companies.company_id=".$company_id." GROUP BY " .$this->db->dbprefix."companies.company_id";
+		$sql = "SELECT A.*,COUNT(B.user_company_id) as number_of_users FROM ".$this->db->dbprefix."companies as A 
+		LEFT JOIN ".$this->db->dbprefix."userinfo as B ON B.user_company_id=A.company_id where A.company_id=".$company_id." GROUP BY A.company_id";
 		$query = $this->db->query($sql);
 
 		if ($query->num_rows() > 0) {
@@ -76,7 +162,6 @@ class Company_model  extends CI_Model
 				$this->db->where('company_id', $company_id);
 				$success = $this->db->update('companies',$company_data);		
 			}
-			
 			
 		}
 		else {
