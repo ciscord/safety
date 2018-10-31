@@ -53,7 +53,7 @@ complete:
         remove:
         - "composer.json"
     deployer:
-        webhook_url: "http://deployer.unifeyed.com/deploy/HxnC4canRN1TQ0jJ5gb0behPMc5zIREiyJr1EbBvJz4StOTbZzilqxk0jtQF"
+        webhook_url: "http://deployer.unifeyed.com/deploy/KQfwvEvbrgSBwA41mrYZfHidNCqmKpFN3nek3ra3364Gxj0uaOMbljTXAPTb"
         reason: "PHPCI Build #%BUILD% - %COMMIT_MESSAGE%"
         update_only: true
     email:

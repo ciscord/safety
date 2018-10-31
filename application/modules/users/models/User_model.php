@@ -80,7 +80,7 @@ class User_model  extends Userinfo_model
 	public function count_all()
 	{
 		$this->db->from('users');
-		$this->db->where('deleted',0);
+		$this->db->where('users.deleted',0);
 		return $this->db->count_all_results();
 	}
 	
@@ -112,7 +112,7 @@ class User_model  extends Userinfo_model
 	    $this->db->from('users');	
 		$this->db->join('userinfo', 'userinfo.user_id = users.user_id');
 	    $this->db->where('email',$email);
-	    $this->db->where('deleted',0);
+	    $this->db->where('users.deleted',0);
 	    $this->db->where('active',0);
 	    return $this->db->count_all_results();
 	}
@@ -122,7 +122,7 @@ class User_model  extends Userinfo_model
 
 	    $this->db->from('users');
 	    $this->db->where('user_id',$user_id);
-	    $this->db->where('deleted',0);
+	    $this->db->where('users.deleted',0);
 	    $this->db->where('active',0);
 	    return $this->db->count_all_results();
 	}
@@ -480,7 +480,7 @@ class User_model  extends Userinfo_model
 		$this->db->from('users');
 		$this->db->join('userinfo','users.user_id=userinfo.user_id');		
 		$this->db->where("(	email LIKE '%".$this->db->escape_like_str($search)."%'
-	    ) and deleted=0");		
+	    ) and users.deleted=0");		
 		$this->db->order_by("email", "asc");
 		
 		$email = $this->db->get();
