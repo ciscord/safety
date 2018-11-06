@@ -96,7 +96,7 @@ function get_company_location_manage_table($locations)
 		$table.="<th>$header</th>";
 	}
 	$table.='</tr></thead><tbody>';
-	$table.=get_company_manage_table_data_rows($locations);
+	$table.=get_company_location_manage_table_data_rows($locations);
 	$table.='</tbody></table>';
 	return $table;
 }
@@ -129,6 +129,7 @@ function get_company_location_data_row($data_row)
 	// $table_data_row.="<td width='5%'><input type='checkbox' id='user_$data_row->user_id' value='".$data_row->user_id."'/></td>";
 
 	// Apply the xss_clean() of "security" library, which filtered data from passing through <script> tag.
+	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->name)),10).'</td>';
 	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->location_name)),10).'</td>';
 	$table_data_row.='<td width="15%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->location_address)),10).'</td>';
 	$table_data_row.='<td width="20%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->latitude)),22).'</td>';
@@ -139,7 +140,7 @@ function get_company_location_data_row($data_row)
     else
 	$table_data_row.='<td width="10%"><span class="label label-danger">'.$CI->lang->line('profiles_deactivated').'</span></td>';	
 
-	$table_data_row.='<td width="10%">'.anchor($controller_path."/locations/$data_row->company_id", $CI->lang->line('icon_user'),array('class'=>'','title'=>$CI->lang->line('common_edit'))).str_repeat('&nbsp;', 5).anchor($controller_path."/locationview/$data_row->company_id", $CI->lang->line('icon_location'),array('class'=>'','title'=>$CI->lang->line('common_edit'))).str_repeat('&nbsp;', 5).anchor($controller_path."/locations/$data_row->company_id", $CI->lang->line('icon_edit'),array('class'=>'','title'=>$CI->lang->line('common_edit'))).'</td>';		
+	$table_data_row.='<td width="10%">'.anchor($controller_path."/locationview/$data_row->location_company_id/$data_row->location_id", $CI->lang->line('icon_edit'),array('class'=>'','title'=>$CI->lang->line('common_edit'))).'</td>';		
 	$table_data_row.='</tr>';
 	
 	return $table_data_row;

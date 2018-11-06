@@ -144,8 +144,8 @@
             
         </div>
     </div>
-<!-- // city state zip -->
-<div class="row">
+    <!-- // city state zip -->
+    <div class="row">
         <div class="col-lg-4 col-sm-4">                
             <div class='form-group'>
             <?php echo form_label($this->lang->line('profiles_city'), 'company_city',array('class'=>'wide')); ?>
@@ -182,7 +182,7 @@
             
         </div>
     </div>
-<!-- // comments -->
+    <!-- // comments -->
     <div class="row">
         <div class="col-lg-12 col-sm-12">                
             <div class='form-group'>
@@ -225,99 +225,99 @@
  
 <script type='text/javascript'>
    //validation and submit handling
-    $(document).ready(function() {
-      var csfrData = {};
-      csfrData['<?php echo $this->security->get_csrf_token_name(); ?>'] = '<?php echo $this->security->get_csrf_hash(); ?>';
-      $(function() {
-          // Attach csfr data token
-          $.ajaxSetup({
-              data: csfrData
-          });
-      });
+$(document).ready(function() {
+    var csfrData = {};
+    csfrData['<?php echo $this->security->get_csrf_token_name(); ?>'] = '<?php echo $this->security->get_csrf_hash(); ?>';
+    $(function() {
+        // Attach csfr data token
+        $.ajaxSetup({
+            data: csfrData
+        });
+    });
 
-      $('#add_company_form').validate({
-          submitHandler: function(form) {
-              $(form).ajaxSubmit({
-                  success: function(response) {
-                      var str = response.message;
-                      var success = response.success;
-                      var res = str.replace(/\\n/g, "\n");
-                      jAlert(res, 'Confirmation Dialog', function(r) {
-                        window.history.back();
+    $('#add_company_form').validate({
+        submitHandler: function(form) {
+            $(form).ajaxSubmit({
+                success: function(response) {
+                    var str = response.message;
+                    var success = response.success;
+                    var res = str.replace(/\\n/g, "\n");
+                    jAlert(res, 'Confirmation Dialog', function(r) {
+                    window.history.back();
 
-                      });
-                  },
-                  dataType: 'json'
-              });
-          },
-          errorLabelContainer: "#error_message_box",
-          wrapper: "li",
-          rules: {
-                company_name:
-      			{
-      				required:true,
-      				minlength: 1,
-      				maxlength: 250
-      			},
-      			
-                company_email:
-      			{
-      				required:true,
-					email:"email",
-					maxlength: 250
-
-      			},
-                firstname:
-      			{
-      				required:true,
-					maxlength: 250
-
-      			},
-                lastname:
-      			{
-                    required:true,
-					maxlength: 250
-
-      			},
-                company_phone_number:
-      			{
-                    required:true,
-      				maxlength: 250
-      			},
-      			company_cell:
-      			{
-                    required:true,
-      				maxlength: 250
-      			},
-			  
-          },
-          messages: {
-                company_email:
-           		{
-           			email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
-					maxlength: "<?php echo $this->lang->line('profiles_email_maxlength'); ?>"
+                    });
                 },
-                company_name:
-           		{
-					maxlength: "<?php echo $this->lang->line('profiles_first_name_maxlength'); ?>"
-           		},  
-				firstname:
-           		{
-					maxlength: "<?php echo $this->lang->line('profiles_first_name_maxlength'); ?>"
-           		},
-                lastname:
-           		{
-					maxlength: "<?php echo $this->lang->line('profiles_last_name_maxlength'); ?>"
-           		},
-                company_phone_number:
-      			{
-      				maxlength: "<?php echo $this->lang->line('profiles_phone_number_maxlength'); ?>"
-                   },
-                   company_cell:
-      			{
-      				maxlength: "<?php echo $this->lang->line('profiles_phone_number_maxlength'); ?>"
-           		}
-          }
-      });
-  });
+                dataType: 'json'
+            });
+        },
+        errorLabelContainer: "#error_message_box",
+        wrapper: "li",
+        rules: {
+            company_name:
+            {
+                required:true,
+                minlength: 1,
+                maxlength: 250
+            },
+            
+            company_email:
+            {
+                required:true,
+                email:"email",
+                maxlength: 250
+
+            },
+            firstname:
+            {
+                required:true,
+                maxlength: 250
+
+            },
+            lastname:
+            {
+                required:true,
+                maxlength: 250
+
+            },
+            company_phone_number:
+            {
+                required:true,
+                maxlength: 250
+            },
+            company_cell:
+            {
+                required:true,
+                maxlength: 250
+            },
+            
+        },
+        messages: {
+            company_email:
+            {
+                email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
+                maxlength: "<?php echo $this->lang->line('profiles_email_maxlength'); ?>"
+            },
+            company_name:
+            {
+                maxlength: "<?php echo $this->lang->line('profiles_first_name_maxlength'); ?>"
+            },  
+            firstname:
+            {
+                maxlength: "<?php echo $this->lang->line('profiles_first_name_maxlength'); ?>"
+            },
+            lastname:
+            {
+                maxlength: "<?php echo $this->lang->line('profiles_last_name_maxlength'); ?>"
+            },
+            company_phone_number:
+            {
+                maxlength: "<?php echo $this->lang->line('profiles_phone_number_maxlength'); ?>"
+                },
+                company_cell:
+            {
+                maxlength: "<?php echo $this->lang->line('profiles_phone_number_maxlength'); ?>"
+            }
+        }
+    });
+});
 </script>

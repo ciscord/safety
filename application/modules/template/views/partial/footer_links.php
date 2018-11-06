@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="<?php echo base_url();?>assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <!-- AdminLTE App -->
     <script src="<?php echo base_url();?>assets/adminlte/dist/js/app.js" type="text/javascript"></script>
 	

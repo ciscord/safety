@@ -10,10 +10,6 @@ body
 .wrapper {
     overflow: initial;
 }
-.content
-{
-	overflow:auto;
-}
 a.none
 {
 	text-decoration:none;
@@ -249,7 +245,8 @@ label.required
 .big_button
 {
 	position:relative;
-	width:119px;
+	min-width: 119px;
+	max-width: 200px;
 	height:45px;
 	margin-left: 10px;
 	background-repeat:no-repeat;
@@ -1279,4 +1276,80 @@ ul.tsc_paginationA01 li.current a {
 	 }
 	
 	 
+}
+
+.multiselect-container{position:absolute;list-style-type:none;margin:0;padding:0}.multiselect-container .input-group{margin:5px}.multiselect-container>li{padding:0}.multiselect-container>li>a.multiselect-all label{font-weight:700}.multiselect-container>li.multiselect-group label{margin:0;padding:3px 20px 3px 20px;height:100%;font-weight:700}.multiselect-container>li.multiselect-group-clickable label{cursor:pointer}.multiselect-container>li>a{padding:0}.multiselect-container>li>a>label{margin:0;height:100%;cursor:pointer;font-weight:400;padding:3px 20px 3px 40px}.multiselect-container>li>a>label.radio,.multiselect-container>li>a>label.checkbox{margin:0}.multiselect-container>li>a>label>input[type=checkbox]{margin-bottom:5px}.btn-group>.btn-group:nth-child(2)>.multiselect.btn{border-top-left-radius:4px;border-bottom-left-radius:4px}.form-inline .multiselect-container label.checkbox,.form-inline .multiselect-container label.radio{padding:3px 20px 3px 40px}.form-inline .multiselect-container li a label.checkbox input[type=checkbox],.form-inline .multiselect-container li a label.radio input[type=radio]{margin-left:-20px;margin-right:0}
+
+.multiselect-group input {
+  display: none;
+}
+li.multiselect-group a {
+  padding-left: 20px !important;
+}
+
+.modal-content {
+    background-color: #3F6B99;
+}
+
+.white-color {
+	color: #fff;
+}
+
+.modal-header {
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 10px;
+	padding-bottom: 5px;
+    border-bottom: 0px solid #fff;
+}
+
+.medium_button {
+    position: relative;
+    min-width: 119px;
+    max-width: 200px;
+    height: 34px;
+    margin-left: 10px;
+    background-repeat: no-repeat;
+	cursor: pointer;
+	background-color: #FF8F00;
+    border-radius: .25em;
+    color: #fff;
+}
+
+
+.normal-text {
+	color: #3F6B99;
+	-webkit-appearance: textfield;
+    background-color:initial;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    padding: 0px;
+    border-width: 0px;
+    border-style: inset;
+    border-color: initial;
+	border-image: initial;
+	text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    margin: 0em;
+	
+}
+
+select:disabled {
+    color: #3F6B99;
+}
+
+.jconfirm .jconfirm-box {
+    background: #3F6B99 !important;
+}
+
+.jconfirm-content {
+	color: #fff;
+}
+.text-right {
+	/* float: right; */
 }

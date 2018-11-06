@@ -43,10 +43,10 @@
         </div>
 
         <div id="new_button">
-                <?php echo anchor("$controller_path/view",
-                    "<div class='big_button float_left'><span>".$this->lang->line('profiles_new')."</span></div>",
-                    array('class'=>'','title'=>$this->lang->line($controller_name.'_new')));
-                    ?>
+            <?php echo anchor("$controller_path/view",
+                "<div class='big_button float_left'><span>".$this->lang->line('profiles_new')."</span></div>",
+                array('class'=>'','title'=>$this->lang->line($controller_name.'_new')));
+                ?>
         </div>
         <div id="feedback_bar"></div>
     </div>
@@ -56,7 +56,7 @@
 </div>
   
 <script type="text/javascript">
-      $(".remove").click(function(){
+    $(".remove").click(function(){
         var id = $(this).parents("tr").attr("id");
         var url = '<?php echo site_url("$controller_path/deletebyid/")?>' + id;
         jAlert('Are you sure to remove this user?'+url, 'Confirmation Dialog', function(r) {
@@ -76,54 +76,54 @@
 
     });
 
-   $(document).ready(function() 
-   { 
-       var csfrData = {};
+    $(document).ready(function() 
+    { 
+        var csfrData = {};
         csfrData['<?php echo $this->security->get_csrf_token_name(); ?>'] = '<?php echo $this->security->get_csrf_hash(); ?>';
         $(function() {
-       // Attach csfr data token
-        $.ajaxSetup({
-          data: csfrData
-       });
-       });
+            // Attach csfr data token
+            $.ajaxSetup({
+                data: csfrData
+            });
+        });
    
-   	init_table_sorting();
-       enable_select_all();
-       enable_row_selection();
-       enable_search('<?php echo site_url("$controller_path/suggest")?>','<?php echo $this->lang->line("common_confirm_search")?>');
-       enable_delete('<?php echo $this->lang->line("profiles_confirm_delete")?>','<?php echo $this->lang->line("profiles_none_selected")?>');
+   	    init_table_sorting();
+        enable_select_all();
+        enable_row_selection();
+        enable_search('<?php echo site_url("$controller_path/suggest")?>','<?php echo $this->lang->line("common_confirm_search")?>');
+        enable_delete('<?php echo $this->lang->line("profiles_confirm_delete")?>','<?php echo $this->lang->line("profiles_none_selected")?>');
    
-   }); 
+    }); 
    
-   function init_table_sorting()
-   {
-   	//Only init if there is more than one row
-   	if($('.tablesorter tbody tr').length >1)
-   	{
-   		$("#sortable_table").tablesorter(
-   		{ 
-   			sortList: [[1,0]], 
-   			headers: 
-   			{ 
-   				0: { sorter: false}, 
-   				7: { sorter: false},
-   				8: { sorter: false} 
-   			} 
+    function init_table_sorting()
+    {
+        //Only init if there is more than one row
+        if($('.tablesorter tbody tr').length >1)
+        {
+            $("#sortable_table").tablesorter(
+            { 
+                sortList: [[1,0]], 
+                headers: 
+                { 
+                    0: { sorter: false}, 
+                    7: { sorter: false},
+                    8: { sorter: false} 
+                } 
+    
+            }); 
+        }
+    }
    
-   		}); 
-   	}
-   }
+    function post_person_form_submit(response)
+    {
    
-   function post_person_form_submit(response)
-   {
-   
-   	if(!response.success)
-   	{
-   		//Error on saving
-   	}
-   	else
-   	{
-        tb_remove();
+        if(!response.success)
+        {
+            //Error on saving
+        }
+        else
+        {
+            tb_remove();
             //This is an update, just update one row
             if(jQuery.inArray(response.user_id,get_visible_checkbox_ids()) != -1)
             {
@@ -135,8 +135,8 @@
             }
             else //refresh entire table
             {
-                    set_feedback(response.message,'success_message',false);	
-                    location.reload();				
+                set_feedback(response.message,'success_message',false);	
+                location.reload();				
             }
         }
     }

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Company_model  extends CI_Model
+class Event_model  extends CI_Model
 {
 	/*
 	Determines if a given user_id is exist

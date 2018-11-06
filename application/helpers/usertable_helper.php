@@ -139,7 +139,7 @@ function get_dashboard_company_data_row($data_row)
 	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->company_email)),13).'</td>';	
 	$table_data_row.='<td width="10%">'.character_limiter(html_escape($CI->security->xss_clean($data_row->number_of_users)),13).'</td>';
 	
-    if($data_row->active==0)
+    if($data_row->company_active==0)
 	$table_data_row.='<td width="15%"><span class="label label-success">'.$CI->lang->line('profiles_active').'</span></td>';	
     else
 	$table_data_row.='<td width="10%"><span class="label label-danger">'.$CI->lang->line('profiles_deactivated').'</span></td>';	

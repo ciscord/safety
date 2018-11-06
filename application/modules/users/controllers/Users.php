@@ -21,7 +21,7 @@ class Users extends Secure_area implements iData_controller
 		$this->pagination->initialize($config);
 		
 		$data['controller_name']=strtolower(get_class());
-		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();;
+		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();
 		$data['form_width']=$this->get_form_width();
 		$data['content_view']='users/users/user_list';
  
@@ -146,7 +146,7 @@ class Users extends Secure_area implements iData_controller
 		}
 		
 		$data['controller_name']=strtolower(get_class());
-		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();;
+		$data['controller_path']=$this->router->fetch_module()."/".$this->router->fetch_class();
 		
 		$this->load->module("template");
 		$this->template->manage_user_template($data);
