@@ -3,8 +3,6 @@ ___
 
 
 ## This document describes how to find the necessary files to complete this project
-####_It is important to understand the __Unifeyed__ staging system_
-
 1.We use a __Continuous Integration System__
 
 * We do not use FTP during development
@@ -57,9 +55,9 @@ Please become familiar with the following documentation standards
 * __Description:__  Web Application, API and cross platform mobile app
 * __Target Platform:__ Web, iOS, Android version 6+
 * __Version:__ 1.0
-* __Author:__ Unifeyed LLC
+* __Author:__ Maximiliano Ungredda
 * __Date Started:__ 10/4/2018
-* __Development Team Members:__  [YourEmailAddress](mailto:you@unifeyed.com), [AnotherEmailAddress](mailto:yourself@unifeyed.com)
+* __Development Team Members:__  [YourEmailAddress](mailto:smartmaxdev@gmail.com), [AnotherEmailAddress](mailto:smartmaxdev@gmail.com   )
 
 ### Software ###
 

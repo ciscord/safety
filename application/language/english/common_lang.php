@@ -84,7 +84,7 @@ $lang['common_success'] = 'Success!';
 $lang['common_welcome_message'] = 'Your application has been installed. Thank you, and enjoy!';
 $lang['common_delete_install_folder'] = '<i><strong> Important:  </strong>Don\'t forget to delete your <code>install</code> directory</i>';
 $lang['common_default_user_created_message'] = 'A default user created for you with following credentials:';
-$lang['common_default_credentials'] = 'username: unifeyed password: ';
+$lang['common_default_credentials'] = 'username:  password: ';
 $lang['common_default_credentials_pass_save'] = 'Warning: save the password in a safe place, it is shown only once';
 
 ?>

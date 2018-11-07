@@ -1,7 +1,6 @@
 site_name: Enter application name 
-site_url: http://staging.unifeyed.com/staging directory
 site_description: Project documentation with Markdown.
-site_author: Unifeyed LLC
+site_author: Maximiliano Ungredda
 
 theme: 'material'
 docs_dir: 'manual'

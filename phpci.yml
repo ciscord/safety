@@ -53,13 +53,12 @@ complete:
         remove:
         - "composer.json"
     deployer:
-        webhook_url: "http://deployer.unifeyed.com/deploy/KQfwvEvbrgSBwA41mrYZfHidNCqmKpFN3nek3ra3364Gxj0uaOMbljTXAPTb"
         reason: "PHPCI Build #%BUILD% - %COMMIT_MESSAGE%"
         update_only: true
     email:
         committer: true
         addresses: 
-          - gmoody@unifeyed.com
+          - smartmaxdev@gmail.com
 
 #    mysql:
 #        host: "localhost"
