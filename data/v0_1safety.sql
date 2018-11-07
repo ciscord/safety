@@ -32,9 +32,9 @@ CREATE TABLE `unf_app_config` (
 INSERT INTO `unf_app_config` (`key`, `value`) VALUES
 ('address', 'West Chester'),
 ('app_logo', 'logo.png'),
-('company', 'Unifeyed'),
+('company', 'smartmaxdev'),
 ('currency_symbol', '0'),
-('email', 'development@unifeyed.com'),
+('email', 'development@smartmaxdev.com'),
 ('facebook_appid', ''),
 ('facebook_login', '0'),
 ('facebook_secret', ''),
@@ -50,7 +50,7 @@ INSERT INTO `unf_app_config` (`key`, `value`) VALUES
 ('twitter_appid', ''),
 ('twitter_login', '0'),
 ('twitter_secret', ''),
-('website', 'http://www.unifeyed.com');
+('website', 'http://www.smartmaxdev.com');
 
 -- --------------------------------------------------------
 
@@ -531,17 +531,17 @@ INSERT INTO `unf_statistics` (`id`, `user_id`, `username`, `user_level`, `sectio
 (7, NULL, NULL, NULL, '', 'index', '2018-10-05 18:28:05', 'favicon.png'),
 (8, NULL, NULL, NULL, '', 'index', '2018-10-05 18:28:05', 'favicon.ico'),
 (9, NULL, NULL, NULL, 'login', 'index', '2018-10-05 18:28:11', 'login'),
-(10, 1, 'unifeyed', 1, 'dashboards', 'index', '2018-10-05 18:28:11', 'dashboard/dashboards'),
-(11, 1, 'unifeyed', 1, '', 'index', '2018-10-05 18:28:12', 'favicon.png'),
-(12, 1, 'unifeyed', 1, '', 'index', '2018-10-05 18:28:12', 'favicon.png'),
-(13, 1, 'unifeyed', 1, '', 'index', '2018-10-05 18:28:12', 'favicon.ico'),
-(14, 1, 'unifeyed', 1, 'Login', 'index', '2018-10-05 18:29:07', ''),
-(15, 1, 'unifeyed', 1, 'dashboards', 'index', '2018-10-05 18:29:07', 'dashboard/dashboards'),
-(16, 1, 'unifeyed', 1, '', 'index', '2018-10-05 18:29:08', 'favicon.png'),
-(17, 1, 'unifeyed', 1, 'config', 'index', '2018-10-05 19:25:08', 'config/config'),
-(18, 1, 'unifeyed', 1, '', 'index', '2018-10-05 19:25:09', 'favicon.png'),
-(19, 1, 'unifeyed', 1, 'dashboards', 'index', '2018-10-05 19:25:25', 'dashboard/dashboards'),
-(20, 1, 'unifeyed', 1, '', 'index', '2018-10-05 19:25:26', 'favicon.png'),
+(10, 1, 'smartmaxdev', 1, 'dashboards', 'index', '2018-10-05 18:28:11', 'dashboard/dashboards'),
+(11, 1, 'smartmaxdev', 1, '', 'index', '2018-10-05 18:28:12', 'favicon.png'),
+(12, 1, 'smartmaxdev', 1, '', 'index', '2018-10-05 18:28:12', 'favicon.png'),
+(13, 1, 'smartmaxdev', 1, '', 'index', '2018-10-05 18:28:12', 'favicon.ico'),
+(14, 1, 'smartmaxdev', 1, 'Login', 'index', '2018-10-05 18:29:07', ''),
+(15, 1, 'smartmaxdev', 1, 'dashboards', 'index', '2018-10-05 18:29:07', 'dashboard/dashboards'),
+(16, 1, 'smartmaxdev', 1, '', 'index', '2018-10-05 18:29:08', 'favicon.png'),
+(17, 1, 'smartmaxdev', 1, 'config', 'index', '2018-10-05 19:25:08', 'config/config'),
+(18, 1, 'smartmaxdev', 1, '', 'index', '2018-10-05 19:25:09', 'favicon.png'),
+(19, 1, 'smartmaxdev', 1, 'dashboards', 'index', '2018-10-05 19:25:25', 'dashboard/dashboards'),
+(20, 1, 'smartmaxdev', 1, '', 'index', '2018-10-05 19:25:26', 'favicon.png'),
 (21, NULL, NULL, NULL, 'Login', 'index', '2018-10-07 00:54:12', ''),
 (22, NULL, NULL, NULL, '', 'index', '2018-10-07 00:54:19', 'favicon.png'),
 (23, NULL, NULL, NULL, '', 'index', '2018-10-07 00:55:25', 'user_guide'),
@@ -611,7 +611,7 @@ CREATE TABLE `unf_userinfo` (
 --
 
 INSERT INTO `unf_userinfo` (`first_name`, `last_name`, `profile_image`, `register_date`, `dob`, `marital_status`, `phone_number`, `email`, `address`, `city`, `state`, `country_code`, `country_name`, `comments`, `user_id`, `social_provider`, `social_identifier`, `social_profileURL`, `user_company_id`, `employee`, `pin`, `deleted`) VALUES
-('Unifeyed', 'Support', '1.png', '2017-05-04', '1955-12-25', 'Single', '14849472800', 'development@unifeyed.com', '1450 E Boot', 'West Chester', 'PA', '19380', '236', 'New No comments', 1, '', '', '', 0, '', '', 0);
+('smartmaxdev', 'Support', '1.png', '2017-05-04', '1955-12-25', 'Single', '14849472800', 'development@smartmaxdev.com', '1450 E Boot', 'West Chester', 'PA', '19380', '236', 'New No comments', 1, '', '', '', 0, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -635,7 +635,7 @@ CREATE TABLE `unf_users` (
 --
 
 INSERT INTO `unf_users` (`username`, `password`, `email_verification_code`, `forgot_password`, `user_id`, `deleted`, `active`, `user_level`) VALUES
-('unifeyed', '$2a$08$m7iJI4mxDS6k/yzwSKXoQeQoS1zpK8eUJ/6pg2.fBIzrl3qzyZL1m', '', 0, 1, 0, 0, 1);
+('smartmaxdev', '$2a$08$m7iJI4mxDS6k/yzwSKXoQeQoS1zpK8eUJ/6pg2.fBIzrl3qzyZL1m', '', 0, 1, 0, 0, 1);
 
 --
 -- Indexes for dumped tables

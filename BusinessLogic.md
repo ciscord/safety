@@ -8,7 +8,7 @@
 
 
 **Tuesday, October 12th 2016**
-> Sample entry 2. [I am a hyperlink example](http://www.unifeyed.com).
+> Sample entry 2. [I am a hyperlink example]().
 
 
 **Tuesday, October 12th 2016**
