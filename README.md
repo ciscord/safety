@@ -6,7 +6,7 @@
 * __Target Platform:__ Web, iOS, Android version 6+
 * __Version:__ 1.0
 * __Date Started:__ 10/4/2018
-* __Development Team Members:__  John(mailto:johnqt0727@gmail.com),
+* __Development Team Members:__  Michael(mailto:shants.tech@gmail.com),
 
 ### Software ###
 
